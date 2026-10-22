@@ -238,7 +238,7 @@ body.print .slide { position: relative; opacity: 1; visibility: visible; inline-
   scale: 0 1;
   transition: scale 900ms var(--ease) 300ms;
 }
-#s2 .filed.on .bar i { scale: 0.9405 1; }
+#s2 .filed.on .bar i { scale: 0.9417 1; }
 #s2 .disposed { margin-block-start: 14px; font-size: 26px; }
 #s2 .disposed b { font-variant-numeric: tabular-nums; }
 #s2 .warn { margin-block-start: 22px; font-size: 26px; color: var(--red); }
@@ -679,14 +679,14 @@ body.print .slide { position: relative; opacity: 1; visibility: visible; inline-
   <div class="phone" data-at="2" data-until="2"><img src="img/depts.webp" alt="App list of departments" width="360" height="780"></div>
 
   <div class="filed" data-at="3">
-    <p class="big" data-count="509571">0</p>
+    <p class="big" data-count="509620">0</p>
     <p class="lbl">complaints filed</p>
     <div class="bar"><i></i></div>
-    <p class="disposed"><b>479,243</b> disposed (94%)</p>
-    <p class="warn">disposed counts closures, not fixes</p>
+    <p class="disposed"><b>479,924</b> marked “resolved” (94%)</p>
+    <p class="warn">Website: “disposed”. Dashboard: “resolved”.<br>Both count officer closures, not fixes.</p>
   </div>
 
-  <p class="tag" data-at="2">portal, 22 Oct 2026</p>
+  <p class="tag" data-at="2">portal and dashboard, 22 Oct 2026</p>
 
   <script>
   (() => {
@@ -718,7 +718,7 @@ body.print .slide { position: relative; opacity: 1; visibility: visible; inline-
   <aside class="notes">
     <p>Beat 1: "You can file by app, website, the 1902 helpline, a service centre, or on X. Everything lands on one desk."</p>
     <p>Beat 2: "Behind the desk sit more than 40 departments. It opened on 1 November 2021."</p>
-    <p>Beat 3: "Over half a million complaints. Almost all are marked disposed. Remember that word: disposed. It does not mean fixed."</p>
+    <p>Beat 3: "Over half a million complaints. Almost all are marked resolved. But the website calls the same group disposed. Both only mean an officer closed it, not that the citizen agreed it is fixed."</p>
   </aside>
 </section>
 <section class="slide" id="s3" data-beats="4">
@@ -1167,8 +1167,8 @@ body.print .slide { position: relative; opacity: 1; visibility: visible; inline-
     </div>
     <div>
       <dt>Does “disposed” mean “fixed”?</dt>
-      <dd>No. The 479,243 disposed count officer closures. We have no public split of “Resolved (Feedback Taken)”.
-        <small>portal, 22 Oct 2026</small></dd>
+      <dd>No. The website says “disposed”, the dashboard says “resolved” (479,924). Total = resolved + pending, so officer closures count as resolved.
+        <small>portal and dashboard, 22 Oct 2026</small></dd>
     </div>
     <div>
       <dt>Why score trust 3/5 when you could not see status?</dt>

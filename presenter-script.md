@@ -48,7 +48,7 @@ Three screens use three different words for the same thing:
 - **On open:** "First: how do people complain?"
 - **Click 1:** "There are five ways in: the app, the website, the 1902 helpline, a service centre like Grama One, or on X. All of them land on one desk: Janaspandana."
 - **Click 2:** "Behind that desk sit more than 40 government departments. It started on 1 November 2021 and is open all the time."
-- **Click 3:** "Over five lakh complaints have been filed. Almost all are marked 'disposed'. But 'disposed' only means an officer closed it. It does not mean the problem is fixed. Keep that in mind."
+- **Click 3:** "Over five lakh complaints have been filed. 94% are marked 'resolved'. The website calls the same group 'disposed'. Both only mean an officer closed it, not that the citizen agreed it is fixed. Keep that in mind."
 
 ## Slide 3: Where a complaint goes (4 clicks)
 
@@ -111,7 +111,7 @@ Three screens use three different words for the same thing:
 
 Keep this slide for questions. Short answers:
 - **"What is the official time limit?"** "21 days, 7 per level, since May 2025. The '15 days' you may have heard was the CM's spoken order for one meeting in 2023."
-- **"Does disposed mean fixed?"** "No. Disposed means the officer closed it. The public numbers don't show how many citizens agreed it was fixed."
+- **"Does disposed mean fixed?"** "No. The website says disposed and the dashboard says resolved, but both count officer closures. Total equals resolved plus pending, so nothing is left for 'closed but not confirmed'."
 - **"Why give trust 3 when you couldn't see the status screens?"** "The dashboard and the levels are public. The screens after filing we could not test, and we say so."
 - **"Did you file a real complaint?"** "No. We stopped just before Submit."
 - **"What if all three levels fail?"** "RTI for the records, the Lokayukta for officer misconduct, or Sakala for late services. We could not confirm Sakala's current compensation rates."
