@@ -1,6 +1,6 @@
 # Presenter script: Janaspandana report card
 
-About 5 minutes. **Each "Click" = press → once.** Say the line after it. Speak slowly; the screen does the rest.
+About 6 minutes. **Each "Click" = press → once.** Say the line after it. Speak slowly; the screen does the rest.
 
 ---
 
@@ -32,8 +32,8 @@ Three screens use three different words for the same thing:
 | **Our own test of the real app**, Samsung S24 FE phone, 22 Oct 2026 | Taps, steps, screens, what broke. We stopped **before** Submit, so we did not file a real complaint. |
 | **The official portal**, ipgrs.karnataka.gov.in, read 22 Oct 2026 | Dashboard numbers (509,571 filed, 479,243 disposed, 68.73% on time), who runs it, how escalation works. |
 | **Government Orders (GOs)** on the portal | 9 Aug 2021 (the 3 levels), 23 May 2025 (21 days), 21 Jul 2026 (30 days for requests). |
-| **Google Play reviews** of the app | Citizens saying "closed but not fixed". These are angry reviews, **not a survey**. |
-| **Deccan Herald news**, 2021 to 2024 | Crowds at the CM's meetings, the "15 days" order, the first-month numbers. |
+| **Google Play page** of the app, read 22 Oct 2026 | The app's own screenshots (what you see after filing), and real reviews saying "closed but not fixed". Reviews are angry voices, **not a survey**. |
+| **Deccan Herald news**, 2021 to 2025 | Crowds at the CM's meetings, the "15 days" order, the first-month numbers. |
 
 ---
 
@@ -64,9 +64,17 @@ Three screens use three different words for the same thing:
 - **Click 1:** "The form has five screens."
 - **Click 2:** "It took 18 taps and 5 list choices. It took us 140 seconds, and we knew the way. A new user would need about 3 to 6 minutes; that is our guess."
 - **Click 3:** "The search box found nothing. Some lists never loaded, even after 30 seconds."
-- **Click 4:** "There is no button to speak instead of type. And after filing, no screen we saw showed a due date."
+- **Click 4:** "There is no button to speak instead of type. And no due date. So what do you see after filing?"
 
-## Slide 5: We asked four questions (4 clicks)
+## Slide 5: After you file: who is on it? (3 clicks)
+
+- **On open:** "This is the app's own screen for one complaint. It comes from the app's Play Store page."
+- **Click 1:** "It shows the complaint number, the status, the department, and what you wrote."
+- **Click 2:** "It does not show who is handling it. No officer name, no phone number, no due date, and no level."
+- **Click 3:** "When the officer closes it, you get three buttons: View, View ATR, which is the officer's report, and Give Feedback."
+- How sure we are: measured from the app's official screenshots. We could not open an ATR ourselves, because our test account had no complaints.
+
+## Slide 6: We asked four questions (4 clicks)
 
 - **On open:** "We judged the app on four questions, each scored from 1 to 5."
 - **Click 1:** "One: digital literacy. Can someone with little phone skill finish on their own?"
@@ -74,7 +82,7 @@ Three screens use three different words for the same thing:
 - **Click 3:** "Three: effort. How many taps, minutes and choices does it take?"
 - **Click 4:** "Four: trust. Can I see the status, the deadline and honest results? Two of these, effort and after closure, measure what a real user goes through, not what the website promises."
 
-## Slide 6: The report card (5 clicks)
+## Slide 7: The report card (5 clicks)
 
 - **On open:** "Here is our report card. Each lit lamp is one point out of five."
 - **Click 1:** "Digital literacy: 2. Kannada is one tap away, which is good. But you climb five lists of officials' words, and you can't speak your problem."
@@ -83,7 +91,7 @@ Three screens use three different words for the same thing:
 - **Click 4:** "Trust: 3. The dashboard is public, which is good. It also shows that 3 in 10 complaints miss the deadline."
 - **Click 5:** "Overall: 2.5 out of 5. Easy to open. Hard to finish. Weak after closure."
 
-## Slide 7: Same app, three journeys (4 clicks)
+## Slide 8: Same app, three journeys (4 clicks)
 
 - **On open:** "The same app feels different in a city, a town and a village."
 - **Click 1:** "In the city there is one extra step: you must pick your ward officer."
@@ -91,15 +99,21 @@ Three screens use three different words for the same thing:
 - **Click 3:** "In a village, you depend on a helper, a Grama One centre, or the 1902 phone line. Your own phone, data and typing are the limits; that is our guess."
 - **Click 4:** "Some people are left out entirely: people with no phone number, people who can't type, problems that involve several departments, and topics the app refuses, like court cases."
 
-## Slide 8: Closed is not fixed (4 clicks)
+## Slide 9: Closed is not fixed (3 clicks)
 
-- **On open:** "These are real screens from the app, showing 'Closed by Officer'."
-- **Click 1:** "This is what the app says: closed."
-- **Click 2:** "This is what the citizen says: 'Resolved by the officer, but the street is still not having street light.' The poles are still lying on the ground."
-- **Click 3:** "Another person: 'Marked solved without any real action.' Their land access was blocked for years."
-- **Click 4:** "In February 2024, over 20,000 people went to the Vidhana Soudha to meet the Chief Minister in person. He said if officers solved problems locally, people would not need to come to Bengaluru. These reviews are not a survey, so we use them only as warning signs."
+- **On open:** "This is the app's own list of complaints. Look at the tags."
+- **Click 1:** "This is what the app says: Closed by Officer."
+- **Click 2:** "This is a real review from the Play Store: 'it was resolved by the officer, but the street is still not having street light.' The poles are still lying on the ground."
+- **Click 3:** "And it is not one person. Land access blocked for years, marked 'solved'. Another says: 'There is no escalation matrix.' The app is rated 3.3 from 378 reviews. Reviews are not a survey, so we use them only as warning signs."
 
-## Slide 9: Seven fixes, where they land (4 clicks)
+## Slide 10: So people go to the Chief Minister (3 clicks)
+
+- **On open:** "When the app does not fix it, people go to the top."
+- **Click 1:** "February 2024: over 20,000 people came to the Vidhana Soudha. The Chief Minister said if officers solved problems locally, people would not need to come to Bengaluru."
+- **Click 2:** "November 2023: the same rush at his home office. He told officials to clear these complaints within 15 days."
+- **Click 3:** "August 2025: three Bengaluru city staff were sacked for not uploading complaints into the city's own system, Sahaaya. That is not Janaspandana, but it is the same problem: complaints dropped without action."
+
+## Slide 11: Seven fixes, where they land (4 clicks)
 
 - **On open:** "Here is the same journey again, with our seven fixes pinned where they help."
 - **Click 1:** "Most fixes belong at the very first step: make search work, cut the lists, let people speak or send a photo, and use plain words."
@@ -107,12 +121,12 @@ Three screens use three different words for the same thing:
 - **Click 3:** "At closure: always allow reopening, with the report as proof. And when a list fails to load, show an error and the helpline number."
 - **Click 4:** "Do this, and 'resolved' will finally mean the light is on. Thank you."
 
-## Slide 10: Questions we expect (no clicks)
+## Slide 12: Questions we expect (no clicks)
 
 Keep this slide for questions. Short answers:
 - **"What is the official time limit?"** "21 days, 7 per level, since May 2025. The '15 days' you may have heard was the CM's spoken order for one meeting in 2023."
 - **"Does disposed mean fixed?"** "No. The website says disposed and the dashboard says resolved, but both count officer closures. Total equals resolved plus pending, so nothing is left for 'closed but not confirmed'."
-- **"Why give trust 3 when you couldn't see the status screens?"** "The dashboard and the levels are public. The screens after filing we could not test, and we say so."
+- **"Why give trust 3 when you couldn't test the status screens yourselves?"** "The dashboard and the levels are public. From the app's own screenshots we know the detail screen shows no officer and no due date. We could not open an ATR, and we say so."
 - **"Did you file a real complaint?"** "No. We stopped just before Submit."
 - **"What if all three levels fail?"** "RTI for the records, the Lokayukta for officer misconduct, or Sakala for late services. We could not confirm Sakala's current compensation rates."
 

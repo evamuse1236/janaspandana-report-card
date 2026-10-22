@@ -342,6 +342,37 @@ body.print .slide { position: relative; opacity: 1; visibility: visible; inline-
 #s4:is([data-beat="3"], [data-beat="4"]) .mark { opacity: 1; }
 
 
+#s4b h2 {
+  position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0;
+  font: 700 72px/1 var(--display); letter-spacing: -0.02em;
+}
+#s4b .phone {
+  position: absolute; inset-inline-start: 140px; inset-block-start: 184px; margin: 0;
+  inline-size: 318px; border: 12px solid var(--ink); border-radius: 36px; overflow: clip; background: var(--paper);
+}
+#s4b .phone img { display: block; inline-size: 100%; block-size: auto; }
+#s4b .col { position: absolute; inset-block-start: 200px; }
+#s4b .col ul { margin: 0; padding: 0; list-style: none; }
+#s4b .col h3 { margin: 0 0 18px; font: 700 26px/1 var(--body); text-transform: uppercase; letter-spacing: 0.06em; }
+#s4b .seen { inset-inline-start: 560px; }
+#s4b .seen h3 { color: var(--green); }
+#s4b .seen li { font: 400 32px/1.55 var(--body); }
+#s4b .seen li::before { content: "✓ "; color: var(--green); font-weight: 700; }
+#s4b .missing { inset-inline-start: 1010px; }
+#s4b .missing h3 { color: var(--red); }
+#s4b .missing li { font: 700 40px/1.45 var(--display); color: var(--ink); }
+#s4b .missing li::before { content: "✕ "; color: var(--red); }
+#s4b .btns {
+  position: absolute; inset-inline-start: 560px; inset-block-start: 640px; margin: 0;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px; max-inline-size: 940px;
+  font: 400 26px/1.2 var(--body);
+}
+#s4b .btns span { padding: 10px 22px; border-radius: 999px; border: 2px solid var(--ink); font-weight: 700; }
+#s4b .btns em { font-style: normal; color: var(--muted); flex-basis: 100%; }
+#s4b [data-at]:not(.on) { translate: 0 16px; }
+#s4b .tag { position: absolute; inset-inline-start: 560px; inset-block-start: 820px; margin: 0; font: 400 18px/1.3 var(--body); color: var(--muted); }
+
+
 #s5 .head { position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0; font: 700 76px/1 var(--display); letter-spacing: -0.01em; }
 #s5 .axis { position: absolute; inset-inline-start: 620px; inline-size: 860px; inset-block-start: 222px; block-size: 564px; }
 #s5 .axis .line { position: absolute; inset-inline: 0; inset-block-start: 0; border-block-start: 4px solid var(--ink); }
@@ -521,46 +552,48 @@ body.print .slide { position: relative; opacity: 1; visibility: visible; inline-
   block-size: 8px; border-radius: 4px; background: var(--red);
   transform-origin: left; scale: 0 1; transition: scale 700ms var(--ease) 200ms;
 }
-#s8:is([data-beat="2"], [data-beat="3"], [data-beat="4"]) .chip { background: transparent; color: var(--green); }
-#s8:is([data-beat="2"], [data-beat="3"], [data-beat="4"]) .chip .tick { color: var(--red); }
-#s8:is([data-beat="2"], [data-beat="3"], [data-beat="4"]) .chip .txt::after { scale: 1 1; }
+#s8:is([data-beat="2"], [data-beat="3"]) .chip { background: transparent; color: var(--green); }
+#s8:is([data-beat="2"], [data-beat="3"]) .chip .tick { color: var(--red); }
+#s8:is([data-beat="2"], [data-beat="3"]) .chip .txt::after { scale: 1 1; }
 #s8 .lamp-wrap {
   position: absolute; inset-inline-start: 1340px; inset-block-start: 150px; inline-size: 128px;
 }
 #s8 .lamp { display: block; inline-size: 100%; block-size: auto; color: var(--ink); overflow: visible; }
 #s8 .lamp .head { fill: none; stroke: var(--ink); stroke-width: 3; }
 #s8 .lamp .cone { fill: none; opacity: 0; }
-#s8 .quote {
-  position: absolute; inset-inline-start: var(--s8-x); margin: 0; max-inline-size: 800px;
-  color: var(--ink);
-}
-#s8 .quote p { margin: 0; }
-#s8 .q1 { inset-block-start: 312px; }
-#s8 .q1 p { font: 400 40px/1.2 var(--body); text-wrap: balance; }
-#s8 .q2 { inset-block-start: 470px; }
-#s8 .q2 p { font: 400 30px/1.25 var(--body); }
-#s8 .quote small, #s8 .foot {
-  display: block; margin-block-start: 8px; font: 400 18px/1.3 var(--body); color: var(--muted);
-}
 #s8 [data-at]:not(.on) { translate: 0 16px; }
 #s8 .chip[data-at]:not(.on) { translate: 0 0; scale: 0.96; }
-#s8[data-beat="4"] :is(.chip, .q1, .q2, .lamp-wrap) { opacity: 0.5; }
-#s8 .crowd {
-  position: absolute; inset-inline-start: var(--s8-x); inset-block-start: 600px;
-  inline-size: 1004px; block-size: 84px;
+#s8 .rv {
+  position: absolute; inset-inline-start: var(--s8-x); margin: 0; inline-size: 780px; padding: 6px;
+  background: var(--paper); border-radius: 12px;
+  box-shadow: 0 12px 32px color-mix(in oklch, var(--ink), transparent 82%);
 }
-#s8 .crowd i {
-  position: absolute; inline-size: 9px; block-size: 9px; border-radius: 50%;
-  background: var(--ink); opacity: 0; scale: 0.4;
-  transition: opacity 300ms var(--ease) var(--d), scale 300ms var(--ease) var(--d);
+#s8 .rv img { display: block; inline-size: 100%; block-size: auto; }
+#s8 .r1, #s8 .r2 { inset-block-start: 304px; }
+#s8 .r3 { inset-block-start: 600px; transition-delay: 150ms; }
+#s8 .rv:not(.on) { translate: 0 16px; }
+#s8 .foot { position: absolute; inset-inline-start: 96px; inset-block-start: 866px; margin: 0; font: 400 18px/1.3 var(--body); color: var(--muted); }
+
+
+#s8b h2 {
+  position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0;
+  font: 700 72px/1 var(--display); letter-spacing: -0.02em;
 }
-#s8[data-beat="4"] .crowd i { opacity: 1; scale: 1; }
-#s8 .crowd-text {
-  position: absolute; inset-inline-start: var(--s8-x); inset-block-start: 702px; max-inline-size: 1004px;
+#s8b .clip {
+  position: absolute; margin: 0; padding: 14px; background: var(--paper); border-radius: 6px;
+  box-shadow: 0 12px 32px color-mix(in oklch, var(--ink), transparent 80%);
 }
-#s8 .crowd-text b { display: block; font: 700 28px/1.2 var(--body); }
-#s8 .crowd-text q { display: block; margin-block-start: 8px; font: 400 24px/1.3 var(--body); }
-#s8 .foot { position: absolute; inset-inline-start: var(--s8-x); inset-block-start: 806px; margin: 0; }
+#s8b .clip img { display: block; inline-size: 100%; block-size: auto; }
+#s8b .crowd { inset-inline-start: 96px; inset-block-start: 196px; inline-size: 680px; rotate: -1deg; }
+#s8b .rush { inset-inline-start: 850px; inset-block-start: 160px; inline-size: 650px; rotate: 1.2deg; }
+#s8b .sacked { inset-inline-start: 110px; inset-block-start: 570px; inline-size: 660px; rotate: 0.6deg; }
+#s8b .say {
+  position: absolute; inset-inline-start: 96px; inset-block-start: 470px; margin: 0; max-inline-size: 700px;
+  font: 400 28px/1.25 var(--body);
+}
+#s8b .say small { display: block; margin-block-start: 6px; font-size: 18px; color: var(--muted); }
+#s8b [data-at]:not(.on) { translate: 0 20px; }
+#s8b .tag { position: absolute; inset-inline-start: 96px; inset-block-start: 856px; margin: 0; font: 400 18px/1.3 var(--body); color: var(--muted); }
 
 
 #s9 .h { position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0; font: 700 72px/1 var(--display); letter-spacing: -0.01em; }
@@ -845,6 +878,39 @@ body.print .slide { position: relative; opacity: 1; visibility: visible; inline-
   })();
   </script>
 </section>
+<section class="slide" id="s4b" data-beats="3">
+  <h2>After you file: who is on it?</h2>
+  <figure class="phone"><img src="img/play-detail.webp" alt="The app's grievance detail screen: ID, status, department, line department, service, grievance, category, description, created date"></figure>
+
+  <div class="col seen" data-at="1">
+    <h3>Shown</h3><ul>
+    <li>Grievance ID</li>
+    <li>Status</li>
+    <li>Department</li>
+    <li>Service</li>
+    <li>Your own text</li>
+    <li>Date you filed</li>
+  </ul></div>
+
+  <div class="col missing" data-at="2">
+    <h3>Not shown</h3><ul>
+    <li>Officer’s name</li>
+    <li>Officer’s phone</li>
+    <li>Due date or days left</li>
+    <li>Level (1, 2 or 3)</li>
+  </ul></div>
+
+  <p class="btns" data-at="3"><em>When the officer closes it, three buttons:</em><span>View</span><span>View ATR</span><span>Give Feedback</span></p>
+
+  <p class="tag">The app’s own screens on Google Play, read 22 Oct 2026</p>
+
+  <aside class="notes">
+    0: This is the app's own screen for one complaint, from its Play Store page.
+    1: It shows the number, the status, the department, and what you wrote.
+    2: It does not show who is handling it. No name, no phone, no due date, no level.
+    3: When the officer closes it, you get three buttons: View, View ATR (the officer's report), and Give Feedback.
+  </aside>
+</section>
 <section class="slide" id="s5" data-beats="4">
   <h2 class="head">We asked four questions</h2>
   <div class="axis" aria-hidden="true">
@@ -1048,7 +1114,7 @@ body.print .slide { position: relative; opacity: 1; visibility: visible; inline-
     <p>Beat 4: And some people are left out entirely: no phone number, can't type, a problem across several departments, or a topic the app refuses.</p>
   </aside>
 </section>
-<section class="slide" id="s8" data-beats="4">
+<section class="slide" id="s8" data-beats="3">
   <h2>Closed is not fixed</h2>
   <figure class="phone" style="margin:0"><img src="img/play-list.webp" alt="Play Store reviews of the app, showing complaints marked Closed by Officer"></figure>
 
@@ -1061,46 +1127,36 @@ body.print .slide { position: relative; opacity: 1; visibility: visible; inline-
     </svg>
   </div>
 
-  <blockquote class="quote q1" data-at="2">
-    <p>“Resolved by the officer, but the street is still not having street light.”</p>
-    <small>Play review, 17 May 2026</small>
-  </blockquote>
+  <figure class="rv r1" data-at="2" data-until="2"><img src="img/review-rv1.webp" alt="Play review, 17 May 2026, 1 star: it was resolved by the officer, but the street is still not having street light. The poles are lying there."></figure>
+  <figure class="rv r2" data-at="3"><img src="img/review-rv2.webp" alt="Play review, 25 Sep 2024, 1 star: the grievance about blocked access to agricultural land was marked solved without any real action."></figure>
+  <figure class="rv r3" data-at="3"><img src="img/review-rv3.webp" alt="Play review, 24 Mar 2025, 1 star: all my issues are closed without resolution. There is no escalation matrix."></figure>
 
-  <blockquote class="quote q2" data-at="3">
-    <p>“Marked ‘solved’ without any real action.” Land access blocked for years.</p>
-    <small>Play review, 25 Sep 2024</small>
-  </blockquote>
-
-  <div class="crowd" aria-hidden="true"></div>
-  <div class="crowd-text" data-at="4">
-    <b>20,000+ people came to Vidhana Soudha, 8 Feb 2024</b>
-    <q>If disposal happens at the lower level, people will not come to Bengaluru.</q>
-  </div>
-  <p class="foot" data-at="4">Deccan Herald, 9 Feb 2024. The Chief Minister’s words. Reviews are self-selected, not a sample.</p>
-
-  <script>
-  (() => {
-    const box = document.querySelector("#s8 .crowd");
-    let seed = 8;
-    const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
-    const W = 1004, H = 84, N = 200, cols = 40, rows = 5;
-    for (let k = 0; k < N; k++) {
-      const c = k % cols, r = Math.floor(k / cols);
-      const x = (c + 0.15 + rnd() * 0.7) * (W - 9) / cols;
-      const y = (r + 0.1 + rnd() * 0.8) * (H - 9) / rows;
-      const i = document.createElement("i");
-      i.style.cssText = `left:${x.toFixed(1)}px;top:${y.toFixed(1)}px;--d:${Math.round(x / W * 900)}ms`;
-      box.append(i);
-    }
-  })();
-  </script>
+  <p class="foot">Real 1-star reviews, Google Play, read 22 Oct 2026. App rated 3.3 from 378 reviews. Reviews are self-selected, not a sample.</p>
 
   <aside class="notes">
-    0: Here are real reviews of the app. Look at the tags.
-    1: This is what the app says. (pause)
-    2: This is what the citizen says. The poles are still lying on the ground.
-    3: Another one: marked solved without any real action. Land access blocked for years.
-    4: People still travel to the capital. The Chief Minister said it himself.
+    0: Here is the app's own list. Look at the tags.
+    1: This is what the app says: closed. (pause)
+    2: This is what the citizen says, in her own review: resolved by the officer, but the street still has no light. The poles are lying there.
+    3: And it is not one person. Land access blocked for years, marked solved. "No escalation matrix." 
+  </aside>
+</section>
+<section class="slide" id="s8b" data-beats="3">
+  <h2>So people go to the Chief Minister</h2>
+
+  <figure class="clip crowd" data-at="1"><img src="img/news-crowd.webp" alt="Deccan Herald, 9 Feb 2024: 20,000 citizens troop into Karnataka's Vidhana Soudha to seek redress"></figure>
+  <p class="say" data-at="1">“If disposal happens at the lower level, people will not come to Bengaluru.”<small>Chief Minister Siddaramaiah, Deccan Herald, 9 Feb 2024</small></p>
+
+  <figure class="clip rush" data-at="2"><img src="img/news-rush.webp" alt="Deccan Herald, 28 Nov 2023: Big rush at Jana Spandana reflects poor grievance redressal, with a photo of the Chief Minister in a crowd of citizens"></figure>
+
+  <figure class="clip sacked" data-at="3"><img src="img/news-sacked.webp" alt="Deccan Herald, 2 Aug 2025: Three BBMP staff sacked for ignoring public complaints"></figure>
+
+  <p class="tag">Deccan Herald, 28 Nov 2023, 9 Feb 2024, 2 Aug 2025</p>
+
+  <aside class="notes">
+    0: When the app does not fix it, people go to the top.
+    1: February 2024: 20,000 people came to the Vidhana Soudha. The Chief Minister said if officers solved problems locally, people would not need to come to Bengaluru.
+    2: November 2023: the same rush at his home office. He ordered officials to clear complaints within 15 days.
+    3: August 2025: three Bengaluru city staff were sacked for not uploading complaints into the city's own system, Sahaaya. Not Janaspandana, but the same problem: complaints dropped without action.
   </aside>
 </section>
 <section class="slide" id="s9" data-beats="4">
