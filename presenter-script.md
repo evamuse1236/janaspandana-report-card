@@ -7,12 +7,18 @@ About 5 minutes. **Each "Click" = press → once.** Say the line after it. Speak
 ## Three things to understand before you present
 
 ### 1. What does "disposed" mean?
-- When an officer **closes** a complaint and uploads a short note of what they did, the portal counts it as **"disposed"**. That note is called the Action Taken Report (ATR).
-- "Disposed" means **the officer says it is done**. It does **not** mean the citizen agreed it is fixed.
-- The app has a separate status for that: **"Resolved (Feedback Taken)"**. That one comes only after the citizen gives feedback.
-- The public dashboard does not show how many were truly resolved. It shows only "disposed" (479,243 of 509,571).
-- Simple way to say it: *"Disposed means closed by the officer. It does not mean the light is on."*
-- How sure we are: the status names come from the real app. That the dashboard counts officer closures is our reading of those statuses (inferred), not a published definition.
+Three screens use three different words for the same thing:
+
+| Where | Word it uses | Number (22 Oct 2026) |
+|---|---|---|
+| Portal home page counter | **"Disposed"** (ವಿಲೇವಾರಿ) | about 480,000 |
+| Government dashboard (Power BI) | **"Resolved Grievances"** | 479,924 |
+| The citizen's app | **"Closed by Officer"**, then **"Resolved (Feedback Taken)"** | your own complaints |
+
+- On the dashboard, **Total = Resolved + Pending**, exactly (509,620 = 479,924 + 29,696). There is no third box. So every complaint that is no longer pending is called "resolved", **including ones the officer closed that the citizen never confirmed**.
+- In the app, the officer closing it ("Closed by Officer") and the citizen confirming it ("Resolved (Feedback Taken)") are two separate steps. The public numbers merge them.
+- Simple way to say it: *"Disposed means the officer closed it. The dashboard even calls that 'resolved'. Neither means the citizen agreed it's fixed."*
+- How sure we are: the words and the numbers are measured. That the dashboard's "Resolved" includes officer-closed complaints is arithmetic plus our reading (inferred): nothing else is left once pending is taken away.
 
 ### 2. How did we rate?
 - We picked **4 questions** (indicators) a first-time village user would care about.
