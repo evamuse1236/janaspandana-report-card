@@ -1,6 +1,6 @@
 # Presenter script: Janaspandana report card
 
-About 6 minutes. **Each "Click" = press → once.** Say the line after it. Speak slowly; the screen does the rest.
+About 5 and a half minutes. **Each "Click" = press → once.** Say the line after it. Speak slowly; the screen does the rest.
 
 ---
 
@@ -91,29 +91,21 @@ Three screens use three different words for the same thing:
 - **Click 4:** "Trust: 3. The dashboard is public, which is good. It also shows that 3 in 10 complaints miss the deadline."
 - **Click 5:** "Overall: 2.5 out of 5. Easy to open. Hard to finish. Weak after closure."
 
-## Slide 8: Same app, three journeys (4 clicks)
-
-- **On open:** "The same app feels different in a city, a town and a village."
-- **Click 1:** "In the city there is one extra step: you must pick your ward officer."
-- **Click 2:** "Towns have service centres nearby to help."
-- **Click 3:** "In a village, you depend on a helper, a Grama One centre, or the 1902 phone line. Your own phone, data and typing are the limits; that is our guess."
-- **Click 4:** "Some people are left out entirely: people with no phone number, people who can't type, problems that involve several departments, and topics the app refuses, like court cases."
-
-## Slide 9: Closed is not fixed (3 clicks)
+## Slide 8: Closed is not fixed (3 clicks)
 
 - **On open:** "This is the app's own list of complaints. Look at the tags."
 - **Click 1:** "This is what the app says: Closed by Officer."
 - **Click 2:** "This is a real review from the Play Store: 'it was resolved by the officer, but the street is still not having street light.' The poles are still lying on the ground."
 - **Click 3:** "And it is not one person. Land access blocked for years, marked 'solved'. Another says: 'There is no escalation matrix.' The app is rated 3.3 from 378 reviews. Reviews are not a survey, so we use them only as warning signs."
 
-## Slide 10: So people go to the Chief Minister (3 clicks)
+## Slide 9: So people go to the Chief Minister (3 clicks)
 
 - **On open:** "When the app does not fix it, people go to the top."
 - **Click 1:** "February 2024: over 20,000 people came to the Vidhana Soudha. The Chief Minister said if officers solved problems locally, people would not need to come to Bengaluru."
 - **Click 2:** "November 2023: the same rush at his home office. He told officials to clear these complaints within 15 days."
 - **Click 3:** "August 2025: three Bengaluru city staff were sacked for not uploading complaints into the city's own system, Sahaaya. That is not Janaspandana, but it is the same problem: complaints dropped without action."
 
-## Slide 11: Seven fixes, where they land (4 clicks)
+## Slide 10: Seven fixes, where they land (4 clicks)
 
 - **On open:** "Here is the same journey again, with our seven fixes pinned where they help."
 - **Click 1:** "Most fixes belong at the very first step: make search work, cut the lists, let people speak or send a photo, and use plain words."
@@ -121,7 +113,7 @@ Three screens use three different words for the same thing:
 - **Click 3:** "At closure: always allow reopening, with the report as proof. And when a list fails to load, show an error and the helpline number."
 - **Click 4:** "Do this, and 'resolved' will finally mean the light is on. Thank you."
 
-## Slide 12: Questions we expect (no clicks)
+## Slide 11: Questions we expect (no clicks)
 
 Keep this slide for questions. Short answers:
 - **"What is the official time limit?"** "21 days, 7 per level, since May 2025. The '15 days' you may have heard was the CM's spoken order for one meeting in 2023."
