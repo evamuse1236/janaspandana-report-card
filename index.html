@@ -1,0 +1,1241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Janaspandana: a report card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Noto+Sans+Kannada:wght@500;700&display=swap">
+<style>
+:root {
+  --wash: #EEF1F4;
+  --paper: #FFFFFF;
+  --ink: #17213A;
+  --muted: #6B7488;
+  --rule: #D5DAE2;
+  --lamp: #F5B300;
+  --lamp-glow: color-mix(in oklch, #F5B300, transparent 55%);
+  --red: #D7372B;
+  --green: #2E8B57;
+  --display: "Bricolage Grotesque", "Atkinson Hyperlegible", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Noto Sans Kannada", system-ui, sans-serif;
+  --kn: "Noto Sans Kannada", "Noto Sans Kannada UI", sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t: 450ms;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; block-size: 100%; background: #0E1424; overflow: clip; }
+body { font-family: var(--body); color: var(--ink); }
+.viewport { position: fixed; inset: 0; display: grid; place-items: center; }
+.stage {
+  position: relative;
+  inline-size: 1600px;
+  block-size: 900px;
+  flex: none;
+  transform: scale(var(--k, 1));
+  background: var(--wash);
+  overflow: clip;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 250ms linear, visibility 0s 250ms;
+}
+.slide.current { opacity: 1; visibility: visible; transition: opacity 250ms linear; }
+[data-at] { transition: opacity var(--t) var(--ease), translate var(--t) var(--ease), scale var(--t) var(--ease); }
+[data-at]:not(.on) { opacity: 0; }
+[data-until].off { opacity: 0; pointer-events: none; }
+.notes { display: none; }
+body.show-notes .slide.current .notes {
+  display: block;
+  position: absolute;
+  inset-inline: 40px;
+  inset-block-end: 40px;
+  padding: 16px 20px;
+  background: #17213AEE;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 10px;
+  z-index: 50;
+}
+.progress {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 4px;
+  background: var(--lamp);
+  transform-origin: left;
+  scale: var(--p, 0) 1;
+  transition: scale 300ms var(--ease);
+  z-index: 40;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; }
+}
+body.print { overflow: visible; background: #888; }
+body.print .viewport { position: static; display: block; }
+body.print .stage { transform: none; margin: 20px auto; background: none; overflow: visible; block-size: auto; }
+body.print .slide { position: relative; opacity: 1; visibility: visible; inline-size: 1600px; block-size: 900px; margin-block-end: 20px; background: var(--wash); overflow: clip; }
+
+#s1 [data-at]:not(.on) { translate: 0 24px; }
+#s1 .tag [data-at] { display: inline-block; }
+#s1 h1 {
+  position: absolute;
+  inset-inline-start: 96px;
+  inset-block-start: 150px;
+  inline-size: 820px;
+  margin: 0;
+  font: 700 120px/1.0 var(--display);
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+#s1 .sub {
+  position: absolute;
+  inset-inline-start: 96px;
+  inset-block-start: 440px;
+  inline-size: 760px;
+}
+#s1 .sub :where(p) { margin: 0; }
+#s1 .what { font-size: 30px; line-height: 1.3; color: var(--ink); }
+#s1 .who { margin-block-start: 28px; font-size: 22px; line-height: 1.4; color: var(--muted); }
+#s1 .ground {
+  position: absolute;
+  inset-inline: 900px 96px;
+  inset-block-start: 760px;
+  block-size: 3px;
+  background: var(--ink);
+}
+#s1 .lamp {
+  position: absolute;
+  inset-inline-start: 960px;
+  inset-block-start: 320px;
+  inline-size: 165px;
+  block-size: 440px;
+  color: var(--ink);
+  overflow: visible;
+}
+#s1 .lamp .head { fill: none; stroke: var(--ink); stroke-width: 3; transition: fill 700ms var(--ease), stroke 700ms var(--ease); }
+#s1 .lamp .cone { fill: var(--lamp); opacity: 0; transition: opacity 700ms var(--ease); }
+#s1 .phone {
+  position: absolute;
+  inset-inline-start: 1176px;
+  inset-block-start: 112px;
+  inline-size: 300px;
+  border: 14px solid var(--ink);
+  border-radius: 40px;
+  background: var(--paper);
+  overflow: clip;
+}
+#s1 .phone img { display: block; inline-size: 100%; block-size: auto; }
+#s1 .tag {
+  position: absolute;
+  inset-inline-start: 96px;
+  inset-block-start: 800px;
+  margin: 0;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+
+#s2 [data-at]:not(.on) { translate: 0 24px; }
+#s2 .wires[data-at]:not(.on), #s2 .fan[data-at]:not(.on) { translate: none; }
+#s2 h2 {
+  position: absolute;
+  inset-inline-start: 96px;
+  inset-block-start: 72px;
+  margin: 0;
+  font: 700 76px/1.0 var(--display);
+  letter-spacing: -0.02em;
+}
+#s2 .doors {
+  position: absolute;
+  inset-inline-start: 140px;
+  inset-block-start: 220px;
+  inline-size: 380px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-rows: repeat(5, 108px);
+}
+#s2 .doors li {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  column-gap: 18px;
+  align-items: center;
+}
+#s2 .door { inline-size: 36px; block-size: 52px; }
+#s2 .door rect { fill: var(--paper); stroke: var(--ink); stroke-width: 3; }
+#s2 .door circle { fill: var(--ink); }
+#s2 .doors b { display: block; font-size: 28px; line-height: 1.15; }
+#s2 .doors small { display: block; font-size: 20px; line-height: 1.3; color: var(--muted); }
+#s2 svg.wires, #s2 svg.fan {
+  position: absolute;
+  inset: 0;
+  inline-size: 1600px;
+  block-size: 900px;
+  overflow: visible;
+}
+#s2 .wires path, #s2 .fan path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 700ms var(--ease);
+}
+#s2 .wires.on path, #s2 .fan.on path { stroke-dashoffset: 0; }
+#s2 .wires path:nth-child(2) { transition-delay: 60ms; }
+#s2 .wires path:nth-child(3) { transition-delay: 120ms; }
+#s2 .wires path:nth-child(4) { transition-delay: 180ms; }
+#s2 .wires path:nth-child(5) { transition-delay: 240ms; }
+#s2 .hub {
+  position: absolute;
+  inset-inline-start: 670px;
+  inset-block-start: 380px;
+  inline-size: 220px;
+  block-size: 220px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: grid;
+  place-items: center;
+  font: 700 26px/1 var(--display);
+}
+#s2 .hub[data-at]:not(.on) { translate: none; scale: 0.96; }
+#s2 .fan path { stroke: var(--rule); stroke-width: 2; transition-delay: 0ms; }
+#s2 .depts { position: absolute; inset-inline-start: 960px; inset-block-start: 300px; }
+#s2 :where(.depts, .filed) p { margin: 0; }
+#s2 .big { font: 700 112px/1 var(--display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+#s2 .lbl { margin-block-start: 8px; font-size: 30px; }
+#s2 .since { margin-block-start: 44px; font-size: 26px; line-height: 1.35; color: var(--muted); }
+#s2 .phone {
+  position: absolute;
+  inset-inline-start: 1216px;
+  inset-block-start: 168px;
+  inline-size: 288px;
+  border: 14px solid var(--ink);
+  border-radius: 40px;
+  background: var(--paper);
+  overflow: clip;
+}
+#s2 .phone img { display: block; inline-size: 100%; block-size: auto; }
+#s2 .filed { position: absolute; inset-inline: 960px 96px; inset-block-start: 270px; }
+#s2 .bar {
+  margin-block-start: 64px;
+  block-size: 32px;
+  background: var(--rule);
+  position: relative;
+}
+#s2 .bar i {
+  position: absolute;
+  inset: 0;
+  background: var(--lamp);
+  transform-origin: left;
+  scale: 0 1;
+  transition: scale 900ms var(--ease) 300ms;
+}
+#s2 .filed.on .bar i { scale: 0.9405 1; }
+#s2 .disposed { margin-block-start: 14px; font-size: 26px; }
+#s2 .disposed b { font-variant-numeric: tabular-nums; }
+#s2 .warn { margin-block-start: 22px; font-size: 26px; color: var(--red); }
+#s2 .tag {
+  position: absolute;
+  inset-inline-start: 96px;
+  inset-block-start: 800px;
+  margin: 0;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+
+#s3 .h { position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0; font: 700 72px/1 var(--display); letter-spacing: -0.01em; }
+#s3 .art { position: absolute; inset: 0; inline-size: 1600px; block-size: 900px; overflow: visible; }
+#s3 .track { stroke: var(--rule); stroke-width: 6; stroke-linecap: round; }
+#s3 .stn { fill: var(--wash); stroke: var(--ink); stroke-width: 3; }
+#s3 .lbl { position: absolute; inset-block-start: 498px; translate: -50% 0; margin: 0; font: 400 24px/1.2 var(--body); text-align: center; inline-size: max-content; }
+#s3 .lbl.last { translate: -100% 0; text-align: end; margin-inline-start: 24px; }
+#s3 .lbl.first { translate: -16px 0; text-align: start; }
+#s3 .atr { position: absolute; inset-inline-start: 1130px; inset-block-start: 580px; translate: -50% 0; display: flex; align-items: center; gap: 10px; font: 700 22px/1 var(--body); }
+#s3 .atr small { font: 400 20px/1.15 var(--body); color: var(--muted); }
+#s3 .atr svg { inline-size: 28px; block-size: 36px; flex: none; }
+#s3 .pill { position: absolute; inset-inline-start: 140px; inset-block-start: 470px; inline-size: 96px; block-size: 44px; margin: -22px 0 0 -48px; display: grid; place-items: center; border-radius: 22px; background: var(--lamp); color: var(--ink); font: 700 22px/1 var(--body); z-index: 2; }
+#s3 .pill.on { translate: 990px 0; transition: opacity 300ms var(--ease), translate 900ms var(--ease) 250ms; }
+#s3[data-beat="2"] .pill, #s3[data-beat="3"] .pill, #s3[data-beat="4"] .pill { translate: 816px -202px; }
+#s3[data-beat="2"] .pill { animation: s3-hop 900ms both; }
+@keyframes s3-hop {
+  0% { translate: 990px 0; animation-timing-function: var(--ease); }
+  33% { translate: 816px -106px; animation-timing-function: var(--ease); }
+  66% { translate: 816px -154px; animation-timing-function: var(--ease); }
+  100% { translate: 816px -202px; }
+}
+#s3 .d1 { fill: var(--lamp); }
+#s3 .d2 { fill: color-mix(in oklch, var(--lamp), var(--red)); }
+#s3 .d3 { fill: var(--red); }
+#s3 .arrow { stroke: var(--ink); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+#s3 .t { position: absolute; margin: 0; font: 400 24px/1.2 var(--body); }
+#s3 .lv { font-weight: 700; translate: 0 -50%; }
+#s3 .ask { inset-inline-start: 1148px; inset-block-start: 408px; }
+#s3 .days { inset-inline-end: calc(1600px - 892px); inset-block-start: 296px; text-align: end; font-size: 26px; }
+#s3 .wall { fill: var(--red); }
+#s3 .walltxt { inset-inline-end: calc(1600px - 990px); inset-block-start: 189px; font: 700 28px/1.2 var(--body); color: var(--red); }
+#s3 .exit { stroke: var(--red); stroke-width: 2.5; fill: none; stroke-dasharray: 6 6; }
+#s3 .ex { inset-inline-start: 1372px; translate: 0 -50%; font-weight: 700; }
+#s3 .ex small { display: block; font: 400 18px/1.2 var(--body); color: var(--muted); }
+#s3 .tags { position: absolute; inset-inline: 96px; inset-block-end: 80px; display: flex; justify-content: space-between; gap: 32px; margin: 0; font: 400 18px/1 var(--body); color: var(--muted); }
+#s3 .grow:not(.on) { translate: 0 16px; }
+#s3 .slide-r:not(.on) { translate: -20px 0; }
+
+
+#s4 { --red-soft: color-mix(in oklch, var(--red), transparent 88%); }
+#s4 .head { position: absolute; inset-inline-start: 96px; inset-block-start: 72px; inline-size: 860px; margin: 0; font: 700 76px/1 var(--display); letter-spacing: -0.01em; text-wrap: balance; }
+#s4 .task { position: absolute; inset-inline-start: 96px; inset-block-start: 238px; margin: 0; font: 400 26px/1.2 var(--body); color: var(--muted); transition: opacity var(--t) var(--ease); }
+#s4 .tag { position: absolute; inset-inline-start: 96px; inset-block-end: 34px; margin: 0; font: 400 18px/1 var(--body); color: var(--muted); }
+
+#s4 .phone { position: absolute; inset-block-start: 360px; inline-size: 218px; margin: 0; z-index: var(--z); rotate: var(--r); transform-origin: 50% 50%; transition: opacity var(--t) var(--ease), translate var(--t) var(--ease), scale var(--t) var(--ease); }
+#s4 .phone:not(.on) { translate: 0 24px; }
+#s4 .phone .frame { position: relative; border: 14px solid var(--ink); border-radius: 40px; background: var(--paper); overflow: clip; }
+#s4 .phone img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 360 / 780; }
+#s4 .phone figcaption { position: absolute; inset-block-end: calc(100% + 10px); inset-inline-start: 8px; font: 700 20px/1 var(--body); color: var(--muted); white-space: nowrap; }
+#s4 .p1 { inset-inline-start: 96px;  --r: -3deg;   --z: 1; }
+#s4 .p2 { inset-inline-start: 296px; --r: -1.5deg; --z: 2; }
+#s4 .p3 { inset-inline-start: 496px; --r: 0deg;    --z: 5; }
+#s4 .p4 { inset-inline-start: 696px; --r: 1.5deg;  --z: 4; }
+#s4 .p5 { inset-inline-start: 896px; --r: 3deg;    --z: 3; }
+#s4[data-beat="1"] .p2 { transition-delay: 90ms; }
+#s4[data-beat="1"] .p3 { transition-delay: 180ms; }
+#s4[data-beat="1"] .p4 { transition-delay: 270ms; }
+#s4[data-beat="1"] .p5 { transition-delay: 360ms; }
+
+#s4 .taps { position: absolute; inset-inline-start: 96px; inline-size: 1018px; inset-block-start: 818px; display: flex; justify-content: space-between; transition: opacity var(--t) var(--ease); }
+#s4 .tap { inline-size: 14px; block-size: 14px; border-radius: 50%; border: 2px solid var(--rule); background: transparent; transition: background-color 200ms var(--ease), border-color 200ms var(--ease), scale 200ms var(--ease); }
+#s4 .tap.hit { background: var(--lamp); border-color: var(--lamp); scale: 1.15; }
+
+#s4 .count { position: absolute; inset-inline-end: 96px; inset-block-start: 56px; text-align: end; }
+#s4 .count:not(.on) { translate: 0 -16px; }
+#s4 .count .n { margin: 0; font: 800 176px/0.9 var(--display); font-variant-numeric: tabular-nums; color: var(--ink); }
+#s4 .count .n small { font: 700 34px/1 var(--display); margin-inline-start: 10px; }
+#s4 .count .sub { margin: 14px 0 0; font: 400 26px/1.25 var(--body); color: var(--muted); }
+
+#s4 .mark { position: absolute; inset-inline: 4%; border: 3px solid var(--red); border-radius: 10px; background: var(--red-soft); opacity: 0; transition: opacity var(--t) var(--ease); }
+#s4 .mark.m1 { inset-block-start: 37%; block-size: 13.5%; }
+#s4 .mark.m2 { inset-block-start: 57%; block-size: 10.5%; }
+
+#s4 .call { position: absolute; inset-inline-start: 1170px; inline-size: 334px; margin: 0; font: 700 26px/1.2 var(--body); color: var(--red); }
+#s4 .call::before { content: ""; position: absolute; inset-inline-end: calc(100% + 14px); inset-block-start: 50%; inline-size: var(--lead); border-block-start: 2px solid var(--red); }
+#s4 .call:not(.on) { translate: 16px 0; }
+#s4 .c1 { inset-block-start: 515px; --lead: 412px; }
+#s4 .c2 { inset-block-start: 609px; --lead: 412px; }
+
+#s4 .stamp { position: absolute; inset-block-start: 682px; display: grid; place-items: center; inline-size: 140px; aspect-ratio: 1; padding: 12px; border: 4px solid var(--red); border-radius: 50%; font: 700 21px/1.12 var(--body); color: var(--red); text-align: center; rotate: -8deg; }
+#s4 .stamp:not(.on) { scale: 0.96; }
+#s4 .s1 { inset-inline-start: 1170px; }
+#s4 .s2 { inset-inline-start: 1356px; rotate: 6deg; }
+
+#s4:is([data-beat="3"], [data-beat="4"]) .p3 { scale: 1.25; }
+#s4:is([data-beat="3"], [data-beat="4"]) :is(.p1, .p2, .p4, .p5) { opacity: 0.35; }
+#s4:is([data-beat="3"], [data-beat="4"]) :is(.taps, .task) { opacity: 0.35; }
+#s4:is([data-beat="3"], [data-beat="4"]) .p3 figcaption { opacity: 0; }
+#s4:is([data-beat="3"], [data-beat="4"]) .mark { opacity: 1; }
+
+
+#s5 .head { position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0; font: 700 76px/1 var(--display); letter-spacing: -0.01em; }
+#s5 .axis { position: absolute; inset-inline-start: 620px; inline-size: 860px; inset-block-start: 222px; block-size: 564px; }
+#s5 .axis .line { position: absolute; inset-inline: 0; inset-block-start: 0; border-block-start: 4px solid var(--ink); }
+#s5 .axis .tick { position: absolute; inset-block-start: -8px; inline-size: 4px; block-size: 20px; margin-inline-start: -2px; background: var(--ink); }
+#s5 .axis .end { position: absolute; inset-block-start: 0; inset-block-end: 0; border-inline-start: 2px solid var(--rule); }
+#s5 .axis .num { position: absolute; inset-block-end: calc(100% + 14px); font: 700 32px/1 var(--display); translate: -50% 0; }
+
+#s5 .row { position: absolute; inset-inline: 96px 120px; block-size: 120px; transition: opacity var(--t) var(--ease), translate var(--t) var(--ease); }
+#s5 .row:not(.on) { translate: 0 20px; }
+#s5 .r1 { inset-block-start: 260px; }
+#s5 .r2 { inset-block-start: 400px; }
+#s5 .r3 { inset-block-start: 540px; }
+#s5 .r4 { inset-block-start: 680px; }
+#s5 .row h3 { margin: 0; inline-size: 480px; font: 700 34px/1.1 var(--body); }
+#s5 .row .q { margin: 8px 0 0; inline-size: 480px; font: 400 24px/1.25 var(--body); color: var(--ink); text-wrap: pretty; }
+#s5 .row .span { position: absolute; inset-inline-start: 524px; inline-size: 860px; inset-block-start: 18px; border-block-start: 2px solid var(--rule); }
+#s5 .row .span::before, #s5 .row .span::after { content: ""; position: absolute; inset-block-start: -8px; inline-size: 14px; block-size: 14px; border-radius: 50%; background: var(--ink); }
+#s5 .row .span::before { inset-inline-start: -7px; }
+#s5 .row .span::after { inset-inline-end: -7px; }
+#s5 .row .lo, #s5 .row .hi { position: absolute; inset-block-start: 36px; inline-size: 380px; margin: 0; font: 400 20px/1.25 var(--body); color: var(--muted); }
+#s5 .row .lo { inset-inline-start: 536px; }
+#s5 .row .hi { inset-inline-start: 992px; text-align: end; }
+
+#s5[data-beat="2"] .r1,
+#s5[data-beat="3"] :is(.r1, .r2),
+#s5[data-beat="4"] :is(.r1, .r2, .r3) { opacity: 0.5; }
+
+
+#s6 .s6-title { position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0; font: 700 72px/1 var(--display); letter-spacing: -0.02em; }
+#s6 .row {
+  position: absolute; inset-inline-start: 96px; block-size: 120px;
+  display: grid; grid-template-columns: 464px 424px 110px 406px; align-items: center;
+}
+#s6 .r1 { inset-block-start: 170px; }
+#s6 .r2 { inset-block-start: 310px; }
+#s6 .r3 { inset-block-start: 450px; }
+#s6 .r4 { inset-block-start: 590px; }
+#s6 .name { font: 600 32px/1.1 var(--display); max-inline-size: 420px; }
+#s6 .lamps {
+  display: flex; gap: 56px; align-items: end; block-size: 100%;
+  padding-block-end: 14px;
+  background: linear-gradient(var(--rule), var(--rule)) left bottom 14px / 400px 2px no-repeat;
+}
+#s6 .lamp { inline-size: 34px; block-size: 90px; flex: none; color: var(--ink); overflow: visible; --d: 0ms; }
+#s6 .lamp:nth-child(2) { --d: 300ms; }
+#s6 .lamp:nth-child(3) { --d: 600ms; }
+#s6 .lamp .head { fill: rgb(245 179 0 / 0); stroke: var(--ink); stroke-width: 3; transition: fill 400ms var(--ease), stroke 400ms var(--ease), filter 400ms var(--ease); }
+#s6 .lamp .halo { transform-box: fill-box; transform-origin: center; fill: url(#s6-halo); opacity: 0; transition: opacity 300ms var(--ease); }
+#s6 .lamp .cone { fill: url(#s6-cone); opacity: 0; transform-box: fill-box; transform-origin: 50% 0; transition: opacity 300ms var(--ease); }
+#s6 :is(
+  #s6:not([data-beat="0"]) .r1 .lamp:nth-child(-n+2),
+  #s6:not([data-beat="0"], [data-beat="1"]) .r2 .lamp:nth-child(-n+2),
+  #s6:is([data-beat="3"], [data-beat="4"], [data-beat="5"]) .r3 .lamp:nth-child(-n+3),
+  #s6:is([data-beat="4"], [data-beat="5"]) .r4 .lamp:nth-child(-n+3)
+) {
+  & .head {
+    fill: var(--lamp); stroke: var(--lamp);
+    filter: drop-shadow(0 0 40px var(--lamp)) drop-shadow(0 0 110px var(--lamp));
+    animation: s6-strike 800ms linear var(--d) both;
+  }
+  & .halo { opacity: 1; animation: s6-halo 1100ms var(--ease) var(--d) both; }
+  & .cone { opacity: 1; animation: s6-cone 900ms var(--ease) var(--d) both; }
+}
+@keyframes s6-strike {
+  0% { fill: rgb(245 179 0 / 0); stroke: var(--ink); filter: none; }
+  14% { fill: var(--lamp); stroke: var(--lamp); filter: drop-shadow(0 0 40px var(--lamp)); }
+  24% { fill: rgb(245 179 0 / 0.25); stroke: var(--lamp); filter: none; }
+  44%, 100% { fill: var(--lamp); stroke: var(--lamp); filter: drop-shadow(0 0 40px var(--lamp)) drop-shadow(0 0 110px var(--lamp)); }
+}
+@keyframes s6-halo {
+  0%, 14% { opacity: 0; scale: 0.6; }
+  18% { opacity: 0.8; }
+  26% { opacity: 0.1; }
+  100% { opacity: 1; scale: 1; }
+}
+@keyframes s6-cone {
+  0%, 30% { opacity: 0; scale: 1 0.7; }
+  100% { opacity: 1; scale: 1 1; }
+}
+#s6 .score { font: 700 44px/1 var(--display); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+#s6 .score[data-at]:not(.on) { translate: 0 12px; }
+#s6 .r1 .score.on, #s6 .r2 .score.on { transition-delay: 800ms; }
+#s6 .r3 .score.on, #s6 .r4 .score.on { transition-delay: 1100ms; }
+#s6 .ev { margin: 0; font-size: 22px; line-height: 1.3; max-inline-size: 406px; text-wrap: balance; }
+#s6 .ev.on { transition-delay: 1100ms; }
+#s6 .ev.on.off { transition-delay: 0ms; }
+#s6 :is(.name, .score) { transition: opacity 600ms var(--ease); }
+#s6[data-beat="5"] :is(.name, .score) { opacity: 0.4; }
+#s6 .overall { position: absolute; inset-inline-start: 1094px; inset-block-start: 300px; }
+#s6 .overall[data-at]:not(.on) { scale: 0.96; }
+#s6 .overall.on { transition-delay: 300ms; }
+#s6 .big { margin: 0; font: 800 150px/1 var(--display); letter-spacing: -0.03em; }
+#s6 .big span { font-size: 72px; color: var(--muted); letter-spacing: 0; }
+#s6 .overall p:last-child { margin: 12px 0 0; font-size: 28px; color: var(--muted); }
+#s6 .defs { position: absolute; inline-size: 0; block-size: 0; }
+#s6 .src { position: absolute; inset-inline-start: 96px; inset-block-end: 80px; margin: 0; font-size: 18px; color: var(--muted); }
+
+
+#s7 .s7-title { position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0; font: 700 72px/1 var(--display); letter-spacing: -0.02em; }
+#s7 .scene { position: absolute; inset: 0; inline-size: 1600px; block-size: 900px; overflow: visible; }
+#s7 .scene :is(rect, polyline, line, circle, path) { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+#s7 .scene .ground { stroke-width: 2; }
+#s7 .scene .dots { stroke: var(--ink); stroke-width: 3; stroke-dasharray: 0 12; }
+#s7 .scene .lamp :is(path, rect) { stroke-width: 10; }
+#s7 .lamp .cone { opacity: 0; }
+#s7 :is(.city, .town, .village, .chip, .centre, .reach, .vnote) { transition: opacity 600ms var(--ease), translate var(--t) var(--ease), scale var(--t) var(--ease); }
+#s7[data-beat="4"] :is(.city, .town, .village, .chip, .centre, .reach) { opacity: 0.3; }
+#s7 .place { position: absolute; inset-block-start: 486px; margin: 0; font: 600 32px/1 var(--display); }
+#s7 .place.c { inset-inline-start: 96px; }
+#s7 .place.t { inset-inline-start: 430px; }
+#s7 .place.v { inset-inline-start: 772px; }
+#s7 .chip { position: absolute; inset-inline-start: 96px; inset-block-start: 172px; display: flex; align-items: center; gap: 14px; font-size: 26px; }
+#s7 .chip b { font-family: var(--display); font-size: 28px; }
+#s7 .chip span { display: inline-flex; align-items: center; gap: 12px; padding: 8px 16px; background: var(--paper); border: 2px solid var(--ink); border-radius: 10px; }
+#s7 .chip svg { inline-size: 16px; block-size: 10px; }
+#s7 .chip[data-at]:not(.on) { translate: 0 16px; scale: 0.96; }
+#s7 .centre { position: absolute; inset-inline-start: 430px; inset-block-start: 252px; display: flex; gap: 12px; align-items: start; font-size: 24px; line-height: 1.25; }
+#s7 .centre svg, #s7 .gram svg, #s7 .call svg { flex: none; inline-size: 28px; block-size: 38px; fill: none; stroke: var(--ink); stroke-width: 3; }
+#s7 .centre p { margin: 0; }
+#s7 .centre[data-at]:not(.on), #s7 .reach[data-at]:not(.on) { translate: 0 16px; }
+#s7 .reach { position: absolute; inset: 0; }
+#s7 .gram { position: absolute; inset-inline-start: 1100px; inset-block-start: 420px; display: grid; justify-items: start; gap: 22px; }
+#s7 .gram p, #s7 .call p { margin: 0; font: 700 26px/1 var(--display); }
+#s7 .call { position: absolute; inset-inline-start: 1100px; inset-block-start: 290px; display: flex; gap: 12px; align-items: center; }
+#s7 .call p { font-size: 34px; }
+#s7 .vnote { position: absolute; inset-inline-start: 772px; inset-block-start: 534px; margin: 0; max-inline-size: 420px; font-size: 22px; line-height: 1.3; color: var(--muted); }
+#s7 .out { position: absolute; inset-inline-start: 96px; inset-block-start: 560px; }
+#s7 .out h3 { margin: 0; font: 700 32px/1 var(--display); }
+#s7 .door { position: absolute; inset-inline-start: 0; inset-block-start: 52px; inline-size: 80px; block-size: 120px; overflow: visible; }
+#s7 .door :is(rect, path, circle) { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; }
+#s7 .who { position: absolute; inset-block-start: 60px; inline-size: 210px; }
+#s7 .who svg { display: block; inline-size: 36px; block-size: 52px; transform-origin: 50% 100%; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+#s7 .who p { margin: 10px 0 0; font-size: 22px; line-height: 1.25; text-wrap: balance; }
+#s7 .who:nth-of-type(1) { inset-inline-start: 120px; }
+#s7 .who:nth-of-type(1) svg { rotate: 10deg; }
+#s7 .who:nth-of-type(2) svg { rotate: 20deg; }
+#s7 .who:nth-of-type(3) svg { rotate: 30deg; }
+#s7 .who:nth-of-type(4) svg { rotate: 40deg; }
+#s7 .who:nth-of-type(2) { inset-inline-start: 350px; inset-block-start: 68px; }
+#s7 .who:nth-of-type(3) { inset-inline-start: 580px; inset-block-start: 76px; }
+#s7 .who:nth-of-type(4) { inset-inline-start: 810px; inset-block-start: 84px; }
+#s7 .who { opacity: 0; translate: -24px 0; transition: opacity var(--t) var(--ease), translate var(--t) var(--ease); }
+#s7 .out.on .who { opacity: 1; translate: 0 0; }
+#s7 .out.on .who:nth-of-type(2) { transition-delay: 150ms; }
+#s7 .out.on .who:nth-of-type(3) { transition-delay: 300ms; }
+#s7 .out.on .who:nth-of-type(4) { transition-delay: 450ms; }
+#s7 .phone { position: absolute; inset-inline-start: 1252px; inset-block-start: 170px; margin: 0; border: 14px solid var(--ink); border-radius: 40px; background: var(--paper); overflow: clip; }
+#s7 .phone img { display: block; inline-size: 220px; block-size: auto; }
+#s7 .phone[data-at]:not(.on) { translate: 0 24px; }
+#s7 .phone.on { transition-delay: 300ms; }
+#s7 .src { position: absolute; inset-inline-start: 96px; inset-block-end: 80px; margin: 0; font-size: 18px; color: var(--muted); }
+
+
+#s8 { --s8-x: 500px; }
+#s8 h2 {
+  position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0;
+  font: 700 72px/1 var(--display); letter-spacing: -0.02em; color: var(--ink);
+}
+#s8 .phone {
+  position: absolute; inset-inline-start: 120px; inset-block-start: 196px;
+  inline-size: 300px; border: 14px solid var(--ink); border-radius: 40px;
+  overflow: clip; background: var(--paper);
+}
+#s8 .phone img { display: block; inline-size: 100%; block-size: auto; }
+#s8 .chip {
+  position: absolute; inset-inline-start: var(--s8-x); inset-block-start: 196px;
+  display: flex; align-items: center; gap: 16px;
+  padding-block: 14px; padding-inline: 30px 26px; border-radius: 999px;
+  background: var(--green); color: var(--paper); border: 4px solid var(--green);
+  font: 700 44px/1 var(--body);
+  transition: opacity var(--t) var(--ease), translate var(--t) var(--ease), background-color 700ms var(--ease), color 700ms var(--ease);
+}
+#s8 .chip .tick { transition: color 700ms var(--ease); }
+#s8 .chip .txt { position: relative; }
+#s8 .chip .txt::after {
+  content: ""; position: absolute; inset-inline: -6px; inset-block-start: calc(50% - 4px);
+  block-size: 8px; border-radius: 4px; background: var(--red);
+  transform-origin: left; scale: 0 1; transition: scale 700ms var(--ease) 200ms;
+}
+#s8:is([data-beat="2"], [data-beat="3"], [data-beat="4"]) .chip { background: transparent; color: var(--green); }
+#s8:is([data-beat="2"], [data-beat="3"], [data-beat="4"]) .chip .tick { color: var(--red); }
+#s8:is([data-beat="2"], [data-beat="3"], [data-beat="4"]) .chip .txt::after { scale: 1 1; }
+#s8 .lamp-wrap {
+  position: absolute; inset-inline-start: 1340px; inset-block-start: 150px; inline-size: 128px;
+}
+#s8 .lamp { display: block; inline-size: 100%; block-size: auto; color: var(--ink); overflow: visible; }
+#s8 .lamp .head { fill: none; stroke: var(--ink); stroke-width: 3; }
+#s8 .lamp .cone { fill: none; opacity: 0; }
+#s8 .quote {
+  position: absolute; inset-inline-start: var(--s8-x); margin: 0; max-inline-size: 800px;
+  color: var(--ink);
+}
+#s8 .quote p { margin: 0; }
+#s8 .q1 { inset-block-start: 312px; }
+#s8 .q1 p { font: 400 40px/1.2 var(--body); text-wrap: balance; }
+#s8 .q2 { inset-block-start: 470px; }
+#s8 .q2 p { font: 400 30px/1.25 var(--body); }
+#s8 .quote small, #s8 .foot {
+  display: block; margin-block-start: 8px; font: 400 18px/1.3 var(--body); color: var(--muted);
+}
+#s8 [data-at]:not(.on) { translate: 0 16px; }
+#s8 .chip[data-at]:not(.on) { translate: 0 0; scale: 0.96; }
+#s8[data-beat="4"] :is(.chip, .q1, .q2, .lamp-wrap) { opacity: 0.5; }
+#s8 .crowd {
+  position: absolute; inset-inline-start: var(--s8-x); inset-block-start: 600px;
+  inline-size: 1004px; block-size: 84px;
+}
+#s8 .crowd i {
+  position: absolute; inline-size: 9px; block-size: 9px; border-radius: 50%;
+  background: var(--ink); opacity: 0; scale: 0.4;
+  transition: opacity 300ms var(--ease) var(--d), scale 300ms var(--ease) var(--d);
+}
+#s8[data-beat="4"] .crowd i { opacity: 1; scale: 1; }
+#s8 .crowd-text {
+  position: absolute; inset-inline-start: var(--s8-x); inset-block-start: 702px; max-inline-size: 1004px;
+}
+#s8 .crowd-text b { display: block; font: 700 28px/1.2 var(--body); }
+#s8 .crowd-text q { display: block; margin-block-start: 8px; font: 400 24px/1.3 var(--body); }
+#s8 .foot { position: absolute; inset-inline-start: var(--s8-x); inset-block-start: 806px; margin: 0; }
+
+
+#s9 .h { position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0; font: 700 72px/1 var(--display); letter-spacing: -0.01em; }
+#s9 .art { position: absolute; inset: 0; inline-size: 1600px; block-size: 900px; overflow: visible; }
+#s9 .track { stroke: var(--rule); stroke-width: 6; stroke-linecap: round; }
+#s9 .stn { fill: var(--wash); stroke: var(--ink); stroke-width: 3; transition: fill 700ms var(--ease) 450ms, stroke 700ms var(--ease) 450ms; }
+#s9[data-beat="4"] .stn.end { fill: var(--lamp); stroke: var(--lamp); }
+#s9 .lbl { position: absolute; inset-block-start: 498px; translate: -50% 0; margin: 0; font: 400 24px/1.2 var(--body); text-align: center; inline-size: max-content; }
+#s9 .lbl.last { translate: -100% 0; text-align: end; margin-inline-start: 24px; }
+#s9 .lbl.first { translate: -16px 0; text-align: start; }
+#s9 .lad rect { rx: 2px; }
+#s9 .d1 { fill: var(--lamp); }
+#s9 .d2 { fill: color-mix(in oklch, var(--lamp), var(--red)); }
+#s9 .d3 { fill: var(--red); }
+#s9 .wall { fill: var(--red); }
+#s9 .link { stroke: var(--rule); stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+#s9 .stem { stroke: var(--ink); stroke-width: 2; }
+#s9 .pin { position: absolute; display: flex; align-items: center; gap: 12px; margin: 0; font: 400 24px/1.15 var(--body); translate: -17px -50%; }
+#s9 .pin b { flex: none; display: grid; place-items: center; inline-size: 34px; block-size: 34px; border-radius: 50%; background: var(--lamp); font: 700 20px/1 var(--body); }
+#s9 .pin:not(.on), #s9 .stem:not(.on) { translate: -17px calc(-50% - 24px); }
+#s9 .stem:not(.on) { translate: 0 -24px; }
+#s9 .pin:nth-of-type(2) { transition-delay: 120ms; }
+#s9 .pin:nth-of-type(3) { transition-delay: 240ms; }
+#s9 .pin:nth-of-type(4) { transition-delay: 360ms; }
+#s9 .lamp { position: absolute; inset-inline-start: 1362px; inset-block-start: 584px; inline-size: 90px; block-size: 240px; color: var(--ink); overflow: visible; }
+#s9 .lamp:not(.on) { scale: 0.96; }
+#s9 .lamp .head { fill: none; stroke: var(--ink); stroke-width: 3; transition: fill 700ms var(--ease) 450ms, stroke 700ms var(--ease) 450ms, filter 700ms var(--ease) 450ms; }
+#s9 .lamp .cone { fill: var(--lamp); opacity: 0; transition: opacity 700ms var(--ease) 450ms; }
+#s9[data-beat="4"] .lamp .head { fill: var(--lamp); stroke: var(--lamp); filter: drop-shadow(0 0 14px var(--lamp)); }
+#s9[data-beat="4"] .lamp .cone { opacity: 0.35; }
+#s9 .line { position: absolute; inset-inline-end: calc(1600px - 1320px); inset-block-start: 700px; margin: 0; font: 600 40px/1.1 var(--display); text-align: end; }
+#s9 .line:not(.on) { translate: 0 16px; }
+#s9 .tags { position: absolute; inset-inline-start: 96px; inset-block-end: 80px; margin: 0; font: 400 18px/1 var(--body); color: var(--muted); }
+
+
+#s10 h2 {
+  position: absolute; inset-inline-start: 96px; inset-block-start: 72px; margin: 0;
+  font: 700 72px/1 var(--display); letter-spacing: -0.02em; color: var(--ink);
+}
+#s10 .qa {
+  position: absolute; inset-inline: 96px; inset-block-start: 196px;
+  display: grid; grid-template-columns: 1fr 1fr; column-gap: 96px; row-gap: 40px;
+  margin: 0;
+}
+#s10 .qa div { margin: 0; }
+#s10 dt { font: 700 26px/1.2 var(--body); color: var(--ink); }
+#s10 dd { margin: 10px 0 0; font: 400 22px/1.35 var(--body); color: var(--ink); max-inline-size: 60ch; }
+#s10 dd small { display: block; margin-block-start: 6px; font: 400 18px/1.3 var(--body); color: var(--muted); }
+#s10 .sources {
+  position: absolute; inset-inline: 96px; inset-block-end: 56px; margin: 0;
+  font: 400 16px/1.4 var(--body); color: var(--muted);
+}
+
+</style>
+</head>
+<body>
+<div class="viewport"><div class="stage" id="stage">
+<section class="slide" id="s1" data-beats="2">
+  <h1>Can I get my problem fixed?</h1>
+
+  <div class="sub" data-at="1">
+    <p class="what">Karnataka's Janaspandana (iPGRS), judged from a village with one shared phone.</p>
+    <p class="who">Run by the Praja Seve Department<br>Built by the Centre for Smart Governance</p>
+  </div>
+
+  <div class="ground"></div>
+  <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true">
+    <path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+    <path class="cone" d="M92 40 L40 300 L150 300 Z" />
+    <rect class="head" x="82" y="18" width="34" height="16" rx="4"/>
+  </svg>
+
+  <div class="phone" data-at="2"><img src="img/home.webp" alt="Janaspandana app home screen" width="360" height="780"></div>
+
+  <p class="tag"><span data-at="1">portal, 22 Oct 2026</span><span data-at="2">; app test, 22 Oct 2026</span></p>
+
+  <aside class="notes">
+    <p>Beat 0: "Can I get my problem fixed? That is the only question a citizen asks."</p>
+    <p>Beat 1: "We judged Karnataka's complaint app as a first-time user in a village, with a basic, shared phone."</p>
+    <p>Beat 2: "We tested the real app, on a real phone, on 22 October."</p>
+  </aside>
+</section>
+<section class="slide" id="s2" data-beats="3">
+  <h2>Five doors, one desk</h2>
+
+  <ul class="doors" data-at="1">
+    <li><svg class="door" viewBox="0 0 36 52" aria-hidden="true"><rect x="2" y="2" width="32" height="48" rx="2"/><circle cx="26" cy="28" r="3"/></svg><span><b>App</b></span></li>
+    <li><svg class="door" viewBox="0 0 36 52" aria-hidden="true"><rect x="2" y="2" width="32" height="48" rx="2"/><circle cx="26" cy="28" r="3"/></svg><span><b>Website</b></span></li>
+    <li><svg class="door" viewBox="0 0 36 52" aria-hidden="true"><rect x="2" y="2" width="32" height="48" rx="2"/><circle cx="26" cy="28" r="3"/></svg><span><b>Helpline 1902</b></span></li>
+    <li><svg class="door" viewBox="0 0 36 52" aria-hidden="true"><rect x="2" y="2" width="32" height="48" rx="2"/><circle cx="26" cy="28" r="3"/></svg><span><b>Service centres</b><small>Grama One, Bapuji Seva Kendra, Karnataka One, Bangalore One</small></span></li>
+    <li><svg class="door" viewBox="0 0 36 52" aria-hidden="true"><rect x="2" y="2" width="32" height="48" rx="2"/><circle cx="26" cy="28" r="3"/></svg><span><b>X @iPGRSKarnataka</b></span></li>
+  </ul>
+
+  <svg class="wires" data-at="1" viewBox="0 0 1600 900" aria-hidden="true">
+    <path pathLength="1" d="M540 274 C620 274 610 490 670 490"/>
+    <path pathLength="1" d="M540 382 C620 382 610 490 670 490"/>
+    <path pathLength="1" d="M540 490 L670 490"/>
+    <path pathLength="1" d="M540 598 C620 598 610 490 670 490"/>
+    <path pathLength="1" d="M540 706 C620 706 610 490 670 490"/>
+  </svg>
+  <div class="hub" data-at="1">Janaspandana</div>
+
+  <svg class="fan" data-at="2" viewBox="0 0 1600 900" aria-hidden="true">
+    <path pathLength="1" d="M890 490 C915 490 920 380 940 360"/>
+    <path pathLength="1" d="M890 490 C915 490 920 430 940 420"/>
+    <path pathLength="1" d="M890 490 L940 490"/>
+    <path pathLength="1" d="M890 490 C915 490 920 550 940 560"/>
+    <path pathLength="1" d="M890 490 C915 490 920 600 940 620"/>
+  </svg>
+
+  <div class="depts" data-at="2" data-until="2">
+    <p class="big">40+</p>
+    <p class="lbl">departments</p>
+    <p class="since">Launched 1 Nov 2021<br>Open 24/7</p>
+  </div>
+  <div class="phone" data-at="2" data-until="2"><img src="img/depts.webp" alt="App list of departments" width="360" height="780"></div>
+
+  <div class="filed" data-at="3">
+    <p class="big" data-count="509571">0</p>
+    <p class="lbl">complaints filed</p>
+    <div class="bar"><i></i></div>
+    <p class="disposed"><b>479,243</b> disposed (94%)</p>
+    <p class="warn">disposed counts closures, not fixes</p>
+  </div>
+
+  <p class="tag" data-at="2">portal, 22 Oct 2026</p>
+
+  <script>
+  (() => {
+    const s = document.currentScript.closest("section");
+    const el = s.querySelector("[data-count]");
+    const end = Number(el.dataset.count);
+    const fmt = (n) => n.toLocaleString("en-US");
+    let last = 0, raf = 0;
+    s.addEventListener("beat", (e) => {
+      const b = e.detail;
+      cancelAnimationFrame(raf);
+      if (b < 3) el.textContent = "0";
+      else if (last >= 3 || !s.classList.contains("current") || matchMedia("(prefers-reduced-motion: reduce)").matches) el.textContent = fmt(end);
+      else {
+        const t0 = performance.now();
+        const tick = (t) => {
+          const p = Math.min(1, (t - t0) / 900);
+          el.textContent = fmt(Math.round(end * (1 - (1 - p) ** 3)));
+          if (p < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        setTimeout(() => { if (last >= 3) { cancelAnimationFrame(raf); el.textContent = fmt(end); } }, 950);
+      }
+      last = b;
+    });
+  })();
+  </script>
+
+  <aside class="notes">
+    <p>Beat 1: "You can file by app, website, the 1902 helpline, a service centre, or on X. Everything lands on one desk."</p>
+    <p>Beat 2: "Behind the desk sit more than 40 departments. It opened on 1 November 2021."</p>
+    <p>Beat 3: "Over half a million complaints. Almost all are marked disposed. Remember that word: disposed. It does not mean fixed."</p>
+  </aside>
+</section>
+<section class="slide" id="s3" data-beats="4">
+  <h2 class="h">Where a complaint goes</h2>
+
+  <svg class="art" viewBox="0 0 1600 900" aria-hidden="true">
+    <line class="track" x1="140" y1="470" x2="1460" y2="470"/>
+    <circle class="stn" cx="140" cy="470" r="8"/>
+    <circle class="stn" cx="470" cy="470" r="8"/>
+    <circle class="stn" cx="800" cy="470" r="8"/>
+    <circle class="stn" cx="1130" cy="470" r="8"/>
+    <circle class="stn" cx="1460" cy="470" r="8"/>
+
+    <g data-at="2" class="grow">
+      <path class="arrow" d="M1130 446 V392 M1120 402 L1130 390 L1140 402"/>
+      <g class="d1">
+        <rect x="1020" y="350" width="28" height="28" rx="3"/><rect x="1052" y="350" width="28" height="28" rx="3"/><rect x="1084" y="350" width="28" height="28" rx="3"/><rect x="1116" y="350" width="28" height="28" rx="3"/><rect x="1148" y="350" width="28" height="28" rx="3"/><rect x="1180" y="350" width="28" height="28" rx="3"/><rect x="1212" y="350" width="28" height="28" rx="3"/>
+      </g>
+      <g class="d2">
+        <rect x="1020" y="302" width="28" height="28" rx="3"/><rect x="1052" y="302" width="28" height="28" rx="3"/><rect x="1084" y="302" width="28" height="28" rx="3"/><rect x="1116" y="302" width="28" height="28" rx="3"/><rect x="1148" y="302" width="28" height="28" rx="3"/><rect x="1180" y="302" width="28" height="28" rx="3"/><rect x="1212" y="302" width="28" height="28" rx="3"/>
+      </g>
+      <g class="d3">
+        <rect x="1020" y="254" width="28" height="28" rx="3"/><rect x="1052" y="254" width="28" height="28" rx="3"/><rect x="1084" y="254" width="28" height="28" rx="3"/><rect x="1116" y="254" width="28" height="28" rx="3"/><rect x="1148" y="254" width="28" height="28" rx="3"/><rect x="1180" y="254" width="28" height="28" rx="3"/><rect x="1212" y="254" width="28" height="28" rx="3"/>
+      </g>
+    </g>
+
+    <rect data-at="3" class="wall grow" x="1004" y="198" width="256" height="14" rx="3"/>
+
+    <g data-at="4" class="slide-r">
+      <path class="exit" d="M1268 205 C1310 205 1320 140 1360 140"/>
+      <path class="exit" d="M1268 205 H1360"/>
+      <path class="exit" d="M1268 205 C1310 205 1320 270 1360 270"/>
+    </g>
+  </svg>
+
+  <p class="lbl first" style="inset-inline-start:140px">Filed</p>
+  <p class="lbl" style="inset-inline-start:470px">Registered and sent<br>for Scrutiny</p>
+  <p class="lbl" style="inset-inline-start:800px">In Progress</p>
+  <p class="lbl" style="inset-inline-start:1130px">Closed by<br>Officer</p>
+  <p class="lbl last" style="inset-inline-start:1460px">Resolved<br>(Feedback Taken)</p>
+
+  <div class="atr grow" data-at="1">
+    <svg viewBox="0 0 28 36" aria-hidden="true"><path d="M2 2 H19 L26 9 V34 H2 Z M19 2 V9 H26 M7 17 H21 M7 23 H21 M7 29 H16" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/></svg>
+    <span>ATR<br><small>Action Taken Report</small></span>
+  </div>
+
+  <div class="pill" data-at="1">G-ID</div>
+
+  <p class="t ask grow" data-at="2">Not satisfied?</p>
+  <p class="t lv grow" data-at="2" style="inset-inline-start:1256px; inset-block-start:364px">L1</p>
+  <p class="t lv grow" data-at="2" style="inset-inline-start:1256px; inset-block-start:316px">L2</p>
+  <p class="t lv grow" data-at="2" style="inset-inline-start:1256px; inset-block-start:268px">L3</p>
+  <p class="t days grow" data-at="2">7 days each<br>21 in total</p>
+
+  <p class="t walltxt grow" data-at="3">Day 22: no next step in the app</p>
+
+  <p class="t ex slide-r" data-at="4" style="inset-block-start:140px">RTI</p>
+  <p class="t ex slide-r" data-at="4" style="inset-block-start:205px">Lokayukta</p>
+  <p class="t ex slide-r" data-at="4" style="inset-block-start:282px">Sakala<small>unverified</small></p>
+
+  <p class="tags">
+    <span>Status words: app test, 22 Oct 2026<span data-at="2">; levels: GO of 23 May 2025, portal</span></span>
+    <span data-at="4">Level 2 and 3 'appellate' names: from a citizen guide only (unverified)</span>
+  </p>
+
+  <aside class="notes">
+    <p>0: Where does a complaint go?</p>
+    <p>1: You file. You get a Grievance ID. An officer works on it, then closes it and uploads an Action Taken Report.</p>
+    <p>2: If you say you are not satisfied, it reopens and climbs a level. Seven days per level. You can do this twice.</p>
+    <p>3: After the third level, the app has nothing left for you.</p>
+    <p>4: From here, you leave the app: RTI, the Lokayukta, or Sakala.</p>
+  </aside>
+</section>
+<section class="slide" id="s4" data-beats="4">
+  <h2 class="head">18 taps to report one street light</h2>
+  <p class="task">Dead street light<br>Village address, profile already filled</p>
+
+  <figure class="phone p1" data-at="1"><div class="frame"><img src="img/step1.webp" alt="Step 1 of 5"></div><figcaption>Step 1</figcaption></figure>
+  <figure class="phone p2" data-at="1"><div class="frame"><img src="img/step2.webp" alt="Step 2 of 5"></div><figcaption>Step 2</figcaption></figure>
+  <figure class="phone p3" data-at="1"><div class="frame"><img src="img/step3.webp" alt="Step 3 of 5: search and department list"><span class="mark m1"></span><span class="mark m2"></span></div><figcaption>Step 3</figcaption></figure>
+  <figure class="phone p4" data-at="1"><div class="frame"><img src="img/step4.webp" alt="Step 4 of 5"></div><figcaption>Step 4</figcaption></figure>
+  <figure class="phone p5" data-at="1"><div class="frame"><img src="img/step5.webp" alt="Step 5 of 5"></div><figcaption>Step 5</figcaption></figure>
+
+  <div class="taps" data-at="2" aria-hidden="true"><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i><i class="tap"></i></div>
+  <div class="count" data-at="2">
+    <p class="n"><b>18</b><small>taps</small></p>
+    <p class="sub">5 dropdown choices<br>140 s for our scripted run</p>
+  </div>
+
+  <p class="call c1" data-at="3">Search: nothing<br>after 8–10 s</p>
+  <p class="call c2" data-at="3">Revenue lists:<br>never loaded (30+ s)</p>
+
+  <p class="stamp s1" data-at="4">No micro&shy;phone button</p>
+  <p class="stamp s2" data-at="4">No due date shown</p>
+
+  <p class="tag">app test, S24 FE, 22 Oct 2026</p>
+
+  <aside class="notes">
+    <p>0: We tried one task: report a dead street light, from a village address, with the profile already filled.</p>
+    <p>1: Five screens. Five steps.</p>
+    <p>2: Eighteen taps and five list choices. 140 seconds for us, who knew the path. A real person: three to six minutes, our guess.</p>
+    <p>3: Search returned nothing. Some lists never loaded.</p>
+    <p>4: No voice input. And after filing, no due date on any screen we reached.</p>
+  </aside>
+  <script>
+  (() => {
+    const s = document.currentScript.closest("section");
+    const num = s.querySelector(".count b");
+    const dots = [...s.querySelectorAll(".tap")];
+    const still = matchMedia("(prefers-reduced-motion: reduce)");
+    let last = null, timer = 0;
+    const show = (n) => { num.textContent = n; dots.forEach((d, i) => d.classList.toggle("hit", i < n)); };
+    s.addEventListener("beat", (e) => {
+      const b = e.detail;
+      if (b === last) return;
+      clearInterval(timer);
+      if (b >= 2 && last !== null && last < 2 && s.classList.contains("current") && !still.matches) {
+        let n = 0;
+        show(0);
+        timer = setInterval(() => { show(++n); if (n >= dots.length) clearInterval(timer); }, 60);
+      } else show(b >= 2 ? dots.length : 0);
+      last = b;
+    });
+  })();
+  </script>
+</section>
+<section class="slide" id="s5" data-beats="4">
+  <h2 class="head">We asked four questions</h2>
+  <div class="axis" aria-hidden="true">
+    <span class="end" style="inset-inline-start: -1px"></span>
+    <span class="end" style="inset-inline-start: 859px"></span>
+    <span class="line"></span>
+    <span class="tick" style="inset-inline-start: 0"></span>
+    <span class="tick" style="inset-inline-start: 25%"></span>
+    <span class="tick" style="inset-inline-start: 50%"></span>
+    <span class="tick" style="inset-inline-start: 75%"></span>
+    <span class="tick" style="inset-inline-start: 100%"></span>
+    <span class="num" style="inset-inline-start: 0">1</span>
+    <span class="num" style="inset-inline-start: 100%">5</span>
+  </div>
+
+  <div class="row r1" data-at="1">
+    <h3>Digital literacy</h3>
+    <p class="q">Can someone with little phone skill finish alone?</p>
+    <span class="span"></span>
+    <p class="lo">Needs outside help</p>
+    <p class="hi">Finishes unaided in own language</p>
+  </div>
+  <div class="row r2" data-at="2">
+    <h3>Accountability after closure</h3>
+    <p class="q">If it's closed but not fixed, can I reopen it and see who answers?</p>
+    <span class="span"></span>
+    <p class="lo">No way back</p>
+    <p class="hi">Easy reopen, named officer, proof</p>
+  </div>
+  <div class="row r3" data-at="3">
+    <h3>Citizen effort</h3>
+    <p class="q">How many taps, minutes and choices?</p>
+    <span class="span"></span>
+    <p class="lo">Over 30 taps</p>
+    <p class="hi">Under 8 taps</p>
+  </div>
+  <div class="row r4" data-at="4">
+    <h3>Trust and transparency</h3>
+    <p class="q">Do I see status, deadline and honest results?</p>
+    <span class="span"></span>
+    <p class="lo">Hidden</p>
+    <p class="hi">All public</p>
+  </div>
+
+  <aside class="notes">
+    <p>Four questions, each scored 1 to 5. Two of them, effort and what happens after closure, measure what a real user lives through, not what the website promises.</p>
+    <p>1: Digital literacy: can someone with little phone skill finish alone?</p>
+    <p>2: Accountability after closure: if it's closed but not fixed, can I reopen it and see who answers?</p>
+    <p>3: Citizen effort: how many taps, minutes and choices?</p>
+    <p>4: Trust and transparency: do I see status, deadline and honest results?</p>
+  </aside>
+</section>
+<section class="slide" id="s6" data-beats="5">
+  <h2 class="s6-title">The report card</h2>
+  <svg class="defs" aria-hidden="true"><defs><linearGradient id="s6-cone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5B300" stop-opacity="0.75"/><stop offset="1" stop-color="#F5B300" stop-opacity="0.06"/></linearGradient><radialGradient id="s6-halo"><stop offset="0" stop-color="#F5B300" stop-opacity="0.55"/><stop offset="0.35" stop-color="#F5B300" stop-opacity="0.18"/><stop offset="1" stop-color="#F5B300" stop-opacity="0"/></radialGradient></defs></svg>
+
+  <div class="row r1">
+    <div class="name">Digital literacy</div>
+    <div class="lamps">
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+    </div>
+    <div class="score" data-at="1">2/5</div>
+    <p class="ev" data-at="1" data-until="4">Kannada in 1 tap, but 5 list levels, officials' words, no voice</p>
+  </div>
+
+  <div class="row r2">
+    <div class="name">Accountability after closure</div>
+    <div class="lamps">
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+    </div>
+    <div class="score" data-at="2">2/5</div>
+    <p class="ev" data-at="2" data-until="4">21 days and 3 levels exist; users report no reopen button</p>
+  </div>
+
+  <div class="row r3">
+    <div class="name">Citizen effort</div>
+    <div class="lamps">
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+    </div>
+    <div class="score" data-at="3">3/5</div>
+    <p class="ev" data-at="3" data-until="4">18 taps, 140 s; silent search, dead lists</p>
+  </div>
+
+  <div class="row r4">
+    <div class="name">Trust and transparency</div>
+    <div class="lamps">
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+      <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true"><path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle class="halo" cx="99" cy="26" r="80"/><path class="cone" d="M92 40 L40 300 L150 300 Z"/><rect class="head" x="82" y="18" width="34" height="16" rx="4"/></svg>
+    </div>
+    <div class="score" data-at="4">3/5</div>
+    <p class="ev" data-at="4" data-until="4">68.73% on time: 3 in 10 late; post-filing screens unverified</p>
+  </div>
+
+  <div class="overall" data-at="5">
+    <p class="big">2.5<span> / 5</span></p>
+    <p>overall, average of four</p>
+  </div>
+
+  <p class="src">App test, 22 Oct 2026; portal, 22 Oct 2026; Play reviews, 24 Mar 2025 and 19 Dec 2025</p>
+
+  <aside class="notes">
+    <p>Beat 0: Here is our report card. Four questions, five lamps each.</p>
+    <p>Beat 1: Digital literacy: two. Kannada is one tap away, but you need five list levels and officials' words.</p>
+    <p>Beat 2: Accountability after closure: two. The rules exist; users say they could not reopen.</p>
+    <p>Beat 3: Effort: three.</p>
+    <p>Beat 4: Trust: three. The dashboard is public, and it says 3 in 10 complaints are late.</p>
+    <p>Beat 5: Overall: two and a half out of five. Easy to open. Hard to finish. Weak after closure.</p>
+  </aside>
+</section>
+<section class="slide" id="s7" data-beats="4">
+  <h2 class="s7-title">Same app, three journeys</h2>
+
+  <svg class="scene" viewBox="0 0 1600 900" aria-hidden="true">
+    <line class="ground" x1="96" y1="470" x2="1000" y2="470"/>
+    <g class="city">
+      <rect x="100" y="300" width="56" height="170"/>
+      <rect x="166" y="250" width="64" height="220"/>
+      <rect x="240" y="320" width="46" height="150"/>
+      <rect x="296" y="275" width="60" height="195"/>
+    </g>
+    <g class="town">
+      <rect x="440" y="405" width="80" height="65"/><polyline points="430,405 480,362 530,405"/>
+      <rect x="545" y="412" width="70" height="58"/><polyline points="535,412 580,374 625,412"/>
+      <rect x="640" y="400" width="65" height="70"/><polyline points="630,400 672,362 715,400"/>
+    </g>
+    <g class="village">
+      <rect x="785" y="428" width="54" height="42"/><polyline points="772,428 812,388 852,428"/>
+      <rect x="868" y="432" width="46" height="38"/><polyline points="858,432 891,402 924,432"/>
+      <line x1="950" y1="470" x2="950" y2="430"/><circle cx="950" cy="412" r="18"/>
+      <svg class="lamp" x="964" y="380" width="34" height="90" viewBox="0 0 120 320">
+        <path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+        <path class="cone" d="M92 40 L40 300 L150 300 Z" />
+        <rect class="head" x="82" y="18" width="34" height="16" rx="4"/>
+      </svg>
+    </g>
+    <g class="reach" data-at="3">
+      <line class="dots" x1="1012" y1="470" x2="1100" y2="470"/>
+      <path class="dots" d="M1000 384 Q1040 320 1090 314"/>
+    </g>
+  </svg>
+
+  <p class="place c">City</p>
+  <p class="place t">Town</p>
+  <p class="place v">Village</p>
+
+  <div class="chip" data-at="1">
+    <b>+1 step:</b>
+    <span>pick your ward officer <svg viewBox="0 0 16 10" aria-hidden="true"><path d="M2 2 L8 8 L14 2" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </div>
+
+  <div class="centre" data-at="2">
+    <svg viewBox="0 0 28 38" aria-hidden="true"><path d="M14 36 C6 24 3 19 3 13 A11 11 0 0 1 25 13 C25 19 22 24 14 36 Z"/><circle cx="14" cy="13" r="4"/></svg>
+    <p>Karnataka One,<br>Bapuji Seva Kendra nearby</p>
+  </div>
+
+  <div class="reach" data-at="3">
+    <div class="call">
+      <svg viewBox="0 0 28 38" aria-hidden="true"><rect x="3" y="2" width="22" height="34" rx="5"/><line x1="11" y1="30" x2="17" y2="30"/></svg>
+      <p>1902</p>
+    </div>
+    <div class="gram">
+      <svg viewBox="0 0 28 38" aria-hidden="true"><path d="M14 36 C6 24 3 19 3 13 A11 11 0 0 1 25 13 C25 19 22 24 14 36 Z"/><circle cx="14" cy="13" r="4"/></svg>
+      <p>Grama One</p>
+    </div>
+  </div>
+  <p class="vnote" data-at="3" data-until="3">own phone, data and typing are the limits (guess)</p>
+
+  <div class="out" data-at="4">
+    <h3>Left out</h3>
+    <svg class="door" viewBox="0 0 80 120" aria-hidden="true"><rect x="2" y="2" width="56" height="116"/><path d="M58 2 L78 12 L78 112 L58 118 Z"/><circle cx="70" cy="64" r="2.5"/></svg>
+    <div class="who"><svg viewBox="0 0 30 44" aria-hidden="true"><circle cx="15" cy="8" r="6"/><path d="M15 15 V30 M15 30 L7 42 M15 30 L23 42 M4 22 L26 22"/></svg><p>No phone or OTP</p></div>
+    <div class="who"><svg viewBox="0 0 30 44" aria-hidden="true"><circle cx="15" cy="8" r="6"/><path d="M15 15 V30 M15 30 L7 42 M15 30 L23 42 M4 22 L26 22"/></svg><p>Can't type English or Kannada</p></div>
+    <div class="who"><svg viewBox="0 0 30 44" aria-hidden="true"><circle cx="15" cy="8" r="6"/><path d="M15 15 V30 M15 30 L7 42 M15 30 L23 42 M4 22 L26 22"/></svg><p>Problem spans many departments</p></div>
+    <div class="who"><svg viewBox="0 0 30 44" aria-hidden="true"><circle cx="15" cy="8" r="6"/><path d="M15 15 V30 M15 30 L7 42 M15 30 L23 42 M4 22 L26 22"/></svg><p>Excluded topics (RTI, court, religion…)</p></div>
+  </div>
+
+  <figure class="phone" data-at="4"><img src="img/notice.webp" alt="The app's list of topics it does not accept as grievances"></figure>
+
+  <p class="src">App test, 22 Oct 2026; portal, 22 Oct 2026</p>
+
+  <aside class="notes">
+    <p>Beat 0: Same app, but three very different journeys.</p>
+    <p>Beat 1: In the city, there is an extra step: you must know your ward officer.</p>
+    <p>Beat 2: Towns have service centres nearby.</p>
+    <p>Beat 3: In the village, you depend on a helper, a Grama One centre, or the 1902 line.</p>
+    <p>Beat 4: And some people are left out entirely: no phone number, can't type, a problem across several departments, or a topic the app refuses.</p>
+  </aside>
+</section>
+<section class="slide" id="s8" data-beats="4">
+  <h2>Closed is not fixed</h2>
+  <figure class="phone" style="margin:0"><img src="img/play-list.webp" alt="Play Store reviews of the app, showing complaints marked Closed by Officer"></figure>
+
+  <div class="chip" data-at="1"><span class="txt">Closed by Officer</span> <span class="tick">✓</span></div>
+  <div class="lamp-wrap" data-at="1">
+    <svg class="lamp" viewBox="0 0 120 320" aria-hidden="true">
+      <path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+      <path class="cone" d="M92 40 L40 300 L150 300 Z" />
+      <rect class="head" x="82" y="18" width="34" height="16" rx="4"/>
+    </svg>
+  </div>
+
+  <blockquote class="quote q1" data-at="2">
+    <p>“Resolved by the officer, but the street is still not having street light.”</p>
+    <small>Play review, 17 May 2026</small>
+  </blockquote>
+
+  <blockquote class="quote q2" data-at="3">
+    <p>“Marked ‘solved’ without any real action.” Land access blocked for years.</p>
+    <small>Play review, 25 Sep 2024</small>
+  </blockquote>
+
+  <div class="crowd" aria-hidden="true"></div>
+  <div class="crowd-text" data-at="4">
+    <b>20,000+ people came to Vidhana Soudha, 8 Feb 2024</b>
+    <q>If disposal happens at the lower level, people will not come to Bengaluru.</q>
+  </div>
+  <p class="foot" data-at="4">Deccan Herald, 9 Feb 2024. The Chief Minister’s words. Reviews are self-selected, not a sample.</p>
+
+  <script>
+  (() => {
+    const box = document.querySelector("#s8 .crowd");
+    let seed = 8;
+    const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+    const W = 1004, H = 84, N = 200, cols = 40, rows = 5;
+    for (let k = 0; k < N; k++) {
+      const c = k % cols, r = Math.floor(k / cols);
+      const x = (c + 0.15 + rnd() * 0.7) * (W - 9) / cols;
+      const y = (r + 0.1 + rnd() * 0.8) * (H - 9) / rows;
+      const i = document.createElement("i");
+      i.style.cssText = `left:${x.toFixed(1)}px;top:${y.toFixed(1)}px;--d:${Math.round(x / W * 900)}ms`;
+      box.append(i);
+    }
+  })();
+  </script>
+
+  <aside class="notes">
+    0: Here are real reviews of the app. Look at the tags.
+    1: This is what the app says. (pause)
+    2: This is what the citizen says. The poles are still lying on the ground.
+    3: Another one: marked solved without any real action. Land access blocked for years.
+    4: People still travel to the capital. The Chief Minister said it himself.
+  </aside>
+</section>
+<section class="slide" id="s9" data-beats="4">
+  <h2 class="h">Seven fixes, where they land</h2>
+
+  <svg class="art" viewBox="0 0 1600 900" aria-hidden="true">
+    <line class="track" x1="140" y1="470" x2="1460" y2="470"/>
+    <path class="link" d="M1130 462 V336 H1150"/>
+    <g class="lad">
+      <g class="d1"><rect x="1160" y="330" width="20" height="12"/><rect x="1183" y="330" width="20" height="12"/><rect x="1206" y="330" width="20" height="12"/><rect x="1229" y="330" width="20" height="12"/><rect x="1252" y="330" width="20" height="12"/><rect x="1275" y="330" width="20" height="12"/><rect x="1298" y="330" width="20" height="12"/></g>
+      <g class="d2"><rect x="1160" y="306" width="20" height="12"/><rect x="1183" y="306" width="20" height="12"/><rect x="1206" y="306" width="20" height="12"/><rect x="1229" y="306" width="20" height="12"/><rect x="1252" y="306" width="20" height="12"/><rect x="1275" y="306" width="20" height="12"/><rect x="1298" y="306" width="20" height="12"/></g>
+      <g class="d3"><rect x="1160" y="282" width="20" height="12"/><rect x="1183" y="282" width="20" height="12"/><rect x="1206" y="282" width="20" height="12"/><rect x="1229" y="282" width="20" height="12"/><rect x="1252" y="282" width="20" height="12"/><rect x="1275" y="282" width="20" height="12"/><rect x="1298" y="282" width="20" height="12"/></g>
+      <rect class="wall" x="1160" y="258" width="158" height="10"/>
+    </g>
+    <circle class="stn" cx="140" cy="470" r="8"/>
+    <circle class="stn" cx="470" cy="470" r="8"/>
+    <circle class="stn" cx="800" cy="470" r="8"/>
+    <circle class="stn" cx="1130" cy="470" r="8"/>
+    <circle class="stn end" cx="1460" cy="470" r="8"/>
+    <line class="stem" data-at="1" x1="140" y1="428" x2="140" y2="460"/>
+    <line class="stem" data-at="2" x1="800" y1="428" x2="800" y2="460"/>
+  </svg>
+
+  <p class="lbl first" style="inset-inline-start:140px">Filed</p>
+  <p class="lbl" style="inset-inline-start:470px">Registered and sent<br>for Scrutiny</p>
+  <p class="lbl" style="inset-inline-start:800px">In Progress</p>
+  <p class="lbl" style="inset-inline-start:1130px">Closed by<br>Officer</p>
+  <p class="lbl last" style="inset-inline-start:1460px">Resolved<br>(Feedback Taken)</p>
+
+  <div class="pins">
+    <p class="pin" data-at="1" style="inset-inline-start:140px; inset-block-start:409px"><b>1</b>Make search work</p>
+    <p class="pin" data-at="1" style="inset-inline-start:140px; inset-block-start:359px"><b>2</b>Cut list levels</p>
+    <p class="pin" data-at="1" style="inset-inline-start:140px; inset-block-start:309px"><b>3</b>Voice and photo first</p>
+    <p class="pin" data-at="1" style="inset-inline-start:140px; inset-block-start:259px"><b>4</b>Plain words</p>
+  </div>
+  <p class="pin" data-at="2" style="inset-inline-start:800px; inset-block-start:409px"><b>5</b>Show deadline<br>and officer</p>
+  <p class="pin" data-at="3" style="inset-inline-start:1130px; inset-block-start:404px"><b>6</b>Reopen always, with proof</p>
+  <p class="pin" data-at="3" style="inset-inline-start:1340px; inset-block-start:263px; transition-delay:150ms"><b>7</b>Show errors<br>and a helpline</p>
+
+  <svg class="lamp" data-at="4" viewBox="0 0 120 320" aria-hidden="true">
+    <path d="M60 320 V60 Q60 20 100 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+    <path class="cone" d="M92 40 L40 300 L150 300 Z"/>
+    <rect class="head" x="82" y="18" width="34" height="16" rx="4"/>
+  </svg>
+  <p class="line" data-at="4">Then 'resolved' means<br>the light is on.</p>
+
+  <p class="tags">app test, 22 Oct 2026; Play review, 19 Dec 2025</p>
+
+  <aside class="notes">
+    <p>0: Seven fixes, and where on the journey they land.</p>
+    <p>1: Most fixes land at the very first step: search that works, fewer lists, voice, plain words.</p>
+    <p>2: While it is in progress: show the days left and the officer's name.</p>
+    <p>3: At closure: always allow reopen, with the report as proof. And where the app hits a dead end, show the error and a helpline.</p>
+    <p>4: Do this, and 'resolved' will finally mean the light is on.</p>
+  </aside>
+</section>
+<section class="slide" id="s10" data-beats="0">
+  <h2>Questions we expect</h2>
+  <dl class="qa">
+    <div>
+      <dt>What is the official time limit?</dt>
+      <dd>21 days for grievances, 7 per level, since 23 May 2025. The CM’s “15 days” was a verbal order for one 2023 event.
+        <small>portal, 22 Oct 2026; Deccan Herald, 28 Nov 2023</small></dd>
+    </div>
+    <div>
+      <dt>Does “disposed” mean “fixed”?</dt>
+      <dd>No. The 479,243 disposed count officer closures. We have no public split of “Resolved (Feedback Taken)”.
+        <small>portal, 22 Oct 2026</small></dd>
+    </div>
+    <div>
+      <dt>Why score trust 3/5 when you could not see status?</dt>
+      <dd>The public dashboard and the levels count. The post-filing screens are unverified.
+        <small>app test, 22 Oct 2026</small></dd>
+    </div>
+    <div>
+      <dt>Did you file a real complaint?</dt>
+      <dd>No. We stopped before Review &amp; Submit.
+        <small>app test, 22 Oct 2026</small></dd>
+    </div>
+    <div>
+      <dt>What if all three levels fail?</dt>
+      <dd>RTI for the records, the Lokayukta for officer misconduct, or Sakala for late services. Sakala compensation figures: unverified.
+        <small>portal, 22 Oct 2026</small></dd>
+    </div>
+  </dl>
+  <p class="sources">Sources: ipgrs.karnataka.gov.in (About page, dashboard, GOs of 9 Aug 2021, 23 May 2025, 21 Jul 2026); phone test log, 22 Oct 2026; Deccan Herald, 11 Dec 2021, 28 Nov 2023, 9 Feb 2024; Play Store reviews (com.csg.ipgrs); citizen guide complainthub.org (unverified).</p>
+  <aside class="notes">Backup, not spoken. Use these answers if the panel asks. Say “unverified” where marked.</aside>
+</section>
+<div class="progress"></div>
+</div></div>
+<script>
+const slides = [...document.querySelectorAll(".slide")];
+const stage = document.getElementById("stage");
+let si = 0, beat = 0;
+const beatsOf = (s) => Number(s.dataset.beats || 0);
+function fit() {
+  const k = Math.min(innerWidth / 1600, innerHeight / 900);
+  stage.style.setProperty("--k", k);
+}
+function render() {
+  slides.forEach((s, i) => {
+    s.classList.toggle("current", i === si);
+    const b = i === si ? beat : i < si ? beatsOf(s) : 0;
+    s.dataset.beat = b;
+    s.querySelectorAll("[data-at]").forEach((el) => el.classList.toggle("on", Number(el.dataset.at) <= b));
+    s.querySelectorAll("[data-until]").forEach((el) => el.classList.toggle("off", b > Number(el.dataset.until)));
+    s.dispatchEvent(new CustomEvent("beat", { detail: b }));
+  });
+  stage.style.setProperty("--p", (si + 1) / slides.length);
+  history.replaceState(null, "", `#s${si + 1}.${beat}`);
+}
+function next() {
+  if (beat < beatsOf(slides[si])) beat++;
+  else if (si < slides.length - 1) { si++; beat = 0; }
+  render();
+}
+function prev() {
+  if (beat > 0) beat--;
+  else if (si > 0) { si--; beat = beatsOf(slides[si]); }
+  render();
+}
+addEventListener("keydown", (e) => {
+  if (["ArrowRight", " ", "PageDown", "Enter"].includes(e.key)) { e.preventDefault(); next(); }
+  else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); prev(); }
+  else if (e.key === "Home") { si = 0; beat = 0; render(); }
+  else if (e.key === "n" || e.key === "N") document.body.classList.toggle("show-notes");
+  else if (e.key === "f" || e.key === "F") document.documentElement.requestFullscreen?.();
+});
+addEventListener("click", (e) => { if (e.button === 0) next(); });
+addEventListener("resize", fit);
+const m = location.hash.match(/^#s(\d+)(?:\.(\d+))?/);
+if (m) { si = Math.min(slides.length - 1, Number(m[1]) - 1); beat = Math.min(beatsOf(slides[si]), Number(m[2] || 0)); }
+if (new URLSearchParams(location.search).has("print")) {
+  document.body.classList.add("print");
+  slides.forEach((s) => { s.querySelectorAll("[data-at]").forEach((el) => el.classList.add("on")); s.dataset.beat = beatsOf(s); s.dispatchEvent(new CustomEvent("beat", { detail: beatsOf(s) })); });
+} else { fit(); render(); }
+</script>
+</body>
+</html>
