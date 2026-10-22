@@ -24,15 +24,16 @@
   --t: 450ms;
 }
 * { box-sizing: border-box; }
-html, body { margin: 0; block-size: 100%; background: #0E1424; overflow: clip; }
+html, body { margin: 0; block-size: 100%; background: var(--wash); overflow: clip; }
 body { font-family: var(--body); color: var(--ink); }
-.viewport { position: fixed; inset: 0; display: grid; place-items: center; }
+.viewport { position: fixed; inset: 0; }
 .stage {
-  position: relative;
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
   inline-size: 1600px;
   block-size: 900px;
-  flex: none;
-  transform: scale(var(--k, 1));
+  transform: translate(-50%, -50%) scale(var(--k, 1));
   background: var(--wash);
   overflow: clip;
 }
@@ -76,7 +77,7 @@ body.show-notes .slide.current .notes {
 }
 body.print { overflow: visible; background: #888; }
 body.print .viewport { position: static; display: block; }
-body.print .stage { transform: none; margin: 20px auto; background: none; overflow: visible; block-size: auto; }
+body.print .stage { position: relative; inset: auto; transform: none; margin: 20px auto; background: none; overflow: visible; block-size: auto; }
 body.print .slide { position: relative; opacity: 1; visibility: visible; inline-size: 1600px; block-size: 900px; margin-block-end: 20px; background: var(--wash); overflow: clip; }
 
 #s1 [data-at]:not(.on) { translate: 0 24px; }
